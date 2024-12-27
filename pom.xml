@@ -95,7 +95,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<<<<<<< HEAD
 				<configuration>
 					<excludes>
 						<exclude>
@@ -104,8 +103,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
-=======
->>>>>>> 7dbb3c494445842d1f87a0c348dd04fccbc9da7c
 			</plugin>
 		</plugins>
 	</build>
