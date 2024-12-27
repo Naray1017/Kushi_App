@@ -21,6 +21,7 @@
 	<groupId>com.example </groupId>
 	<artifactId>web-login</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<name>web-login</name>
 >>>>>>> 7cdd645 (intial)
 	<description>Demo project for Spring Boot</description>
