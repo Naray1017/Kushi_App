@@ -12,7 +12,7 @@
 	<artifactId>kushi</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>kushi</name>
+	<name>kushI</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
