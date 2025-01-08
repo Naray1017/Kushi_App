@@ -5,6 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+<<<<<<< HEAD
 		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
@@ -12,6 +13,16 @@
 	<artifactId>web-login</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>web-login</name>
+=======
+		<version>3.4.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.kushi.in</groupId>
+	<artifactId>kushi</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>kushi</name>
+>>>>>>> 7dbb3c494445842d1f87a0c348dd04fccbc9da7c
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -36,6 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+<<<<<<< HEAD
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
@@ -52,6 +64,8 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+=======
+>>>>>>> 7dbb3c494445842d1f87a0c348dd04fccbc9da7c
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
@@ -62,6 +76,7 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
@@ -70,12 +85,18 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+=======
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+>>>>>>> 7dbb3c494445842d1f87a0c348dd04fccbc9da7c
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>student_registaration</groupId>
 			<artifactId>demo</artifactId>
@@ -90,6 +111,8 @@
 
 
 
+=======
+>>>>>>> 7dbb3c494445842d1f87a0c348dd04fccbc9da7c
 	</dependencies>
 
 	<build>
@@ -97,6 +120,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+<<<<<<< HEAD
 				<configuration>
 					<excludes>
 						<exclude>
@@ -105,6 +129,8 @@
 						</exclude>
 					</excludes>
 				</configuration>
+=======
+>>>>>>> 7dbb3c494445842d1f87a0c348dd04fccbc9da7c
 			</plugin>
 		</plugins>
 	</build>
