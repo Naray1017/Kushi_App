@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail Management - Kushi Cleaning Services</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #2c3e50;
+            padding-top: 50px;
+            color: #fff;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar-menu li {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .sidebar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        /* Header Title */
+        .header h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin: 30px 0;
+            color: #2c3e50;
+        }
+
+        /* Table Styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .data-table th {
+            background-color: #2c3e50;
+            color: #fff;
+        }
+
+        .data-table td {
+            background-color: #f4f4f4;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            transition: background-color 0.3s;
+        }
+
+        .btn.edit {
+            background-color: #f39c12;
+        }
+
+        .btn.delete {
+            background-color: #e74c3c;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>Admin Panel</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/admindashboard">Admin Dashboard</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/orders">Orders</a></li>
+            <li><a href="/mail" class="active">Mail</a></li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <h1>Mail Management</h1>
+        </header>
+        <div class="content">
+            <h2>Inbox</h2>
+            <!-- Mail Table -->
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="mail-list">
+                <!-- Dynamic email data will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Fetch inbox mail data
+        function fetchMails() {
+            $.ajax({
+                url: '/admin/mail', // Fetch mail data from backend (get inbox)
+                method: 'GET',
+                success: function (mails) {
+                    let mailRows = "";
+                    mails.forEach(function(mail) {
+                        let mailRow = `
+                            <tr>
+                                <td>${mail.id}</td>
+                                <td>${mail.sender}</td>
+                                <td>${mail.subject}</td>
+                                <td>${mail.date}</td>
+                                <td>
+                                    <a href="/admin/mail/read/${mail.id}" class="btn edit">Read</a>
+                                    <a href="#" class="btn delete" data-id="${mail.id}">Delete</a>
+                                </td>
+                            </tr>
+                        `;
+                        mailRows += mailRow;
+                    });
+                    $('#mail-list').html(mailRows); // Inject into the table
+                },
+                error: function (error) {
+                    console.log('Error fetching mail data:', error);
+                }
+            });
+        }
+
+        // Load mails initially
+        fetchMails();
+
+        // Handle delete mail action
+        $(document).on('click', '.btn.delete', function (e) {
+            e.preventDefault();
+            let mailId = $(this).data('id');
+            $.ajax({
+                url: `/admin/mail/delete/${mailId}`, // Delete mail from backend
+                method: 'DELETE',
+                success: function (response) {
+                    alert('Mail deleted successfully!');
+                    fetchMails(); // Reload the mail list after deletion
+                },
+                error: function (error) {
+                    console.log('Error deleting mail:', error);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

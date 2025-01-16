@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Services - Kushi Cleaning Services</title>
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #2c3e50;
+            padding-top: 50px;
+            color: #fff;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar-menu li {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .sidebar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        /* Header Title */
+        .content h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin: 30px 0;
+            color: #2c3e50;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        /* Form Elements */
+        .form-container label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+            color: #2c3e50;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Services List */
+        .service-list h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .service-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-list ul li {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .service-list ul li p {
+            margin: 5px 0;
+        }
+
+        .service-list ul li img {
+            width: 100px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .service-list ul li button {
+            background-color: #f39c12;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .service-list ul li button:hover {
+            background-color: #e67e22;
+        }
+
+        .service-list ul li button.delete {
+            background-color: #e74c3c;
+        }
+
+        .service-list ul li button.delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* Sidebar Active Link */
+        .sidebar-menu li a.active {
+            background-color: #16a085;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>Admin Panel</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/admindashboard">Admin Dashboard</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/services" class="active">Services</a></li>
+            <li><a href="/orders">Orders</a></li>
+            <li><a href="/mail">Mail</a></li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Manage Services</h1>
+
+        <!-- Add/Edit Service Form -->
+        <div class="form-container">
+            <h2>Add or Edit Service</h2>
+            <form id="service-form">
+                <label for="main-service">Main Service Name:</label>
+                <input type="text" id="main-service" name="main-service" placeholder="e.g. Pest Control" required>
+                <br><br>
+
+                <label for="sub-service">Sub Service Name (Optional):</label>
+                <input type="text" id="sub-service" name="sub-service" placeholder="e.g. Kitchen Cleaning">
+                <br><br>
+
+                <label for="discount">Discount (in %):</label>
+                <input type="number" id="discount" name="discount" placeholder="e.g. 20" min="0" max="100">
+                <br><br>
+
+                <label for="offer">Offer Details:</label>
+                <input type="text" id="offer" name="offer" placeholder="e.g. Free Consultation">
+                <br><br>
+
+                <label for="offer-image">Offer Image:</label>
+                <input type="file" id="offer-image" name="offer-image">
+                <br><br>
+
+                <button type="submit">Add/Update Service</button>
+            </form>
+        </div>
+
+        <!-- Existing Services List -->
+        <div class="service-list">
+            <h2>Existing Services</h2>
+            <ul id="services">
+                <!-- Dynamic list will be inserted here -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch services from the backend (Database)
+        function loadServices() {
+            $.ajax({
+                url: '/admin/get-services',  // Endpoint to get services from the backend
+                method: 'GET',
+                success: function (response) {
+                    const servicesList = $('#services');
+                    servicesList.empty();
+                    response.services.forEach(service => {
+                        const serviceItem = `
+                            <li>
+                                <strong>${service.mainService}</strong>
+                                <div>
+                                    ${service.subServices.map(subService => `<div>${subService}</div>`).join('')}
+                                </div>
+                                <p>Discount: ${service.discount}%</p>
+                                <p>Offer: ${service.offer}</p>
+                                <img src="${service.offerImage}" alt="${service.mainService}" width="100px">
+                                <button onclick="editService(${service.id})">Edit</button>
+                                <button onclick="removeService(${service.id})">Remove</button>
+                            </li>
+                        `;
+                        servicesList.append(serviceItem);
+                    });
+                },
+                error: function () {
+                    alert('Failed to fetch services');
+                }
+            });
+        }
+
+        loadServices();
+
+        // Handle Add/Update Service
+        $('#service-form').on('submit', function (event) {
+            event.preventDefault();
+
+            const mainService = $('#main-service').val();
+            const subService = $('#sub-service').val();
+            const discount = $('#discount').val();
+            const offer = $('#offer').val();
+            const offerImage = $('#offer-image')[0].files[0];
+
+            const formData = new FormData();
+            formData.append('mainService', mainService);
+            formData.append('subService', subService);
+            formData.append('discount', discount);
+            formData.append('offer', offer);
+            if (offerImage) formData.append('offerImage', offerImage);
+
+            $.ajax({
+                url: '/admin/add-update-service',
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    alert('Service added/updated successfully');
+                    loadServices();
+                    $('#service-form')[0].reset();
+                },
+                error: function () {
+                    alert('Failed to add/update service');
+                }
+            });
+        });
+
+        // Remove Service
+        window.removeService = function (serviceId) {
+            if (confirm('Are you sure you want to remove this service?')) {
+                $.ajax({
+                    url: `/admin/remove-service/${serviceId}`,
+                    method: 'DELETE',
+                    success: function () {
+                        alert('Service removed successfully');
+                        loadServices();
+                    },
+                    error: function () {
+                        alert('Failed to remove service');
+                    }
+                });
+            }
+        };
+
+        // Edit Service
+        window.editService = function (serviceId) {
+            $.ajax({
+                url: `/admin/get-service/${serviceId}`,
+                method: 'GET',
+                success: function (service) {
+                    $('#main-service').val(service.mainService);
+                    $('#sub-service').val(service.subService);
+                    $('#discount').val(service.discount);
+                    $('#offer').val(service.offer);
+                    // You might want to show the existing image or provide a way to replace it
+                    $('#offer-image').val('');
+                    $('#service-form button').text('Update Service');
+                },
+                error: function () {
+                    alert('Failed to fetch service data for editing');
+                }
+            });
+        };
+    });
+</script>
+
+</body>
+</html>
