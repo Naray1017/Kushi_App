@@ -1,65 +1,45 @@
 package com.kushi.in.kushi.entity;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
-    private String email;
-    private String phoneNumber;
-    private String role;
 
-    @ElementCollection
-    private List<String> subscribedServices;
+    @Column(nullable = false)
+    private String password;
 
-    public List<String> getSubscribedServices() {
-        return subscribedServices;
-    }
+    @Column(nullable = false)
+    private String role; // Admin, User, etc.
 
-    public void setSubscribedServices(List<String> subscribedServices) {
-        this.subscribedServices = subscribedServices;
-    }
+    // Default constructor
+    public User() {}
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
+    // Constructor with parameters (optional for creating objects with values directly)
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
         this.role = role;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    // One-to-many relation with Order (mapped by 'user' in the Order entity)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders;
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -70,14 +50,21 @@ public class User {
         this.username = username;
     }
 
-    public Long getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    // Getters and setters...
+    public String getRole() {
+        return role;
+    }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // Optional: You can add a method for password hashing before saving, depending on your security needs.
 }

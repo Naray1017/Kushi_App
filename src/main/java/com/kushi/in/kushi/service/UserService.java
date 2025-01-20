@@ -1,49 +1,62 @@
 package com.kushi.in.kushi.service;
 
 
-
+import com.kushi.in.kushi.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.kushi.in.kushi.entity.User;
-import com.kushi.in.kushi.repo.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     @Autowired
-    public UserRepository userRepository;
+    private UserRepository userRepository;
 
     // Fetch all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // Fetch a user by ID
+    // Get user by id
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    // Save or update user
+    // Save a new user or update an existing user
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
-    // Delete a user by ID
+    // Delete user by id
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    // Find user by ID with an exception if not found
-    public User findById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    // Update user details (PUT operation)
+    public User updateUser(Long id, User userDetails) {
+        Optional<User> existingUserOpt = userRepository.findById(id);
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+            existingUser.setUsername(userDetails.getUsername()); // Update username
+            existingUser.setPassword(userDetails.getPassword()); // Update password
+            existingUser.setRole(userDetails.getRole()); // Update role
+            return userRepository.save(existingUser); // Save the updated user
+        }
+        return null;
     }
 
-    // Fetch users who are subscribed to a specific service
-    public List<User> getUsersByService(String service) {
-        return userRepository.findBySubscribedServicesContaining(service);
+    // Method for adding a new user (POST operation)
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
+
+    // Method for deleting a user (DELETE operation)
+    public void removeUser(Long id) {
+        userRepository.deleteById(id);
     }
 }

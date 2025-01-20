@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     // Get all users
-    @GetMapping
+    @GetMapping("/users")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users"; // Template for displaying user details
