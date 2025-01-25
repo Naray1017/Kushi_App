@@ -113,6 +113,26 @@
             padding: 10px;
             margin-top: 50px;
         }
+
+        /* Fallback styling in case external CSS fails */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ecf0f1;
+        }
+
+        .admin-container {
+            display: flex;
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        .charts-container canvas {
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -129,6 +149,7 @@
             <li><a href="/orders">Orders</a></li>
             <li><a href="/mail">Mail</a></li>
             <li><a href="/settings">Settings</a></li>
+
         </ul>
     </nav>
 
@@ -144,11 +165,11 @@
         <div class="charts-container">
             <!-- Pie Chart for Order Status (Pending, Yet to Start, Completed) -->
             <div class="chart">
-                <canvas id="statusPieChart"></canvas>
+                <canvas id="statusPieChart" height="300"></canvas>
             </div>
             <!-- Bar Graph for Service Types -->
             <div class="chart">
-                <canvas id="servicesBarGraph"></canvas>
+                <canvas id="servicesBarGraph" height="300"></canvas>
             </div>
         </div>
 

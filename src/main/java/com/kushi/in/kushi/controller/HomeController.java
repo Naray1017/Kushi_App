@@ -70,4 +70,16 @@ public class HomeController {
         return "services";
     }
 
+
+    @GetMapping("/admindashboard")
+    public String admindashboard(){
+        return "admindashboard";
+    }
+
+    @GetMapping("/mail")
+    public String mail(){
+        return "mail";
+    }
+
+
 }

@@ -30,8 +30,6 @@ public class AdminController {
     private OrderService orderService;
 
 
-
-
     // Admin Dashboard
     @GetMapping("/")
     public String showAdminDetails(Model model) {
@@ -115,6 +113,7 @@ public class AdminController {
         model.addAttribute("order", order);
         return "admin/order-details"; // Template file: src/main/resources/templates/admin/order-details.html
     }
+
     @GetMapping("/offerimages")
     public String showOfferImagesPage() {
         return "offerimages"; // Template file: src/main/resources/templates/admin/settings.html
@@ -127,12 +126,15 @@ public class AdminController {
     }
 
     @GetMapping("/mail")
-        public String showMail(){
+    public String showMail() {
         return "mail";
-        }
+    }
 
-        @GetMapping("/AdminDashboard")
-    public String showAdminDashboard(){
+    @GetMapping("/AdminDashboard")
+    public String showAdminDashboard() {
         return "admindashboard";
-        }
+    }
+
+
+
 }
