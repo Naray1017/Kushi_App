@@ -38,7 +38,6 @@ public class BookingInfoController {
         if (weeklyTop3Services.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No services found for the given period.");
         }
-
         return ResponseEntity.ok(weeklyTop3Services);
     }
 }

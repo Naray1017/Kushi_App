@@ -12,4 +12,5 @@ public class KushiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KushiApplication.class, args);
 	}
+
 }
