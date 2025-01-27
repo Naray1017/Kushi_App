@@ -3,16 +3,20 @@ package com.kushi.in.kushi.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tbl_most_booked_services")  // Make sure this is the correct table name
+@Table(name = "tbl_most_booked_services")
 public class PopularServices {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;  // Assuming this is the service/customer identifier; change if needed
-    private String serviceName;  // Service Name
-    private Double rating;  // Rating of the service (null for now)
-    private Double amount;  // Amount for the service
-    private Long bookingCount;  // Total number of bookings for this service
+    private Long customerId;
+
+    private String serviceName;
+    private Double rating;
+    private Double amount;
+    private Long bookingCount;
+
+    // Add imageUrl field to store the URL of the service image
+    private String imageUrl;  // URL or path to the image
 
     // Getters and Setters
     public Long getCustomerId() {
@@ -53,5 +57,13 @@ public class PopularServices {
 
     public void setBookingCount(Long bookingCount) {
         this.bookingCount = bookingCount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
