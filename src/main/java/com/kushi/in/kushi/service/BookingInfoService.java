@@ -1,5 +1,4 @@
 package com.kushi.in.kushi.service;
-
 import com.kushi.in.kushi.entity.BookingInfo;
 import com.kushi.in.kushi.repository.BookingInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_BOOKING_INFO")
 public class BookingInfo {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CUSTOMER_ID", nullable = false)

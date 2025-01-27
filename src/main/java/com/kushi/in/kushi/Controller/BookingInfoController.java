@@ -1,4 +1,4 @@
-package com.kushi.in.kushi.controller;
+package com.kushi.in.kushi.Controller;
 
 import com.kushi.in.kushi.service.BookingInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
