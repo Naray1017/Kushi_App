@@ -81,5 +81,8 @@ public class HomeController {
         return "mail";
     }
 
-
+         @GetMapping("/PopularServicesService")
+    public String PopularServicesService(){
+        return "PopularServicesService";
+         }
 }
