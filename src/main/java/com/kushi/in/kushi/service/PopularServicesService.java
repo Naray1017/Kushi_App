@@ -15,50 +15,23 @@ public class PopularServicesService {
     @Autowired
     private PopularServicesRepository popularServicesRepository;
 
-    public List<PopularServices> getTopFivePopularServices() {
-        // Fetch the top 5 most booked services with ratings and image URL
-        List<Object[]> results = popularServicesRepository.findTop5MostBookedServicesWithRatingAndImage();
+    public List<PopularServices> getTop5PopularServicesByRating() {
+        List<Object[]> results = popularServicesRepository.findTop5PopularServicesByRating();
         List<PopularServices> popularServicesList = new ArrayList<>();
 
         for (Object[] result : results) {
-            if (result != null && result.length == 5) {  // Ensure the result has 5 columns
+            if (result != null) {
                 PopularServices service = new PopularServices();
 
-                // Map serviceName
-                if (result[0] != null) {
-                    service.setServiceName((String) result[0]);
-                }
-
-                // Map rating (could be null if no ratings available)
-                if (result[1] != null) {
-                    // Ensure the rating is correctly cast to Double
-                    service.setRating(((BigDecimal) result[1]).doubleValue());
-                } else {
-                    service.setRating(0.0);  // Default to 0 if rating is null
-                }
-
-                // Map amount (total booking amount for the service)
-                if (result[2] != null) {
-                    // Ensure the amount is correctly cast to Double
-                    service.setAmount(((BigDecimal) result[2]).doubleValue());
-                } else {
-                    service.setAmount(0.0);  // Default to 0 if amount is null
-                }
-
-                // Map booking count (number of bookings for the service)
-                if (result[3] != null) {
-                    service.setBookingCount(((Number) result[3]).longValue());
-                }
-
-                // Map image URL
-                if (result[4] != null) {
-                    service.setImageUrl((String) result[4]);  // Set image URL
-                }
+                service.setServiceName((String) result[0]);
+                service.setAmount(result[1] != null ? Double.parseDouble(result[1].toString()) : 0.0);
+                service.setBookingCount(result[2] != null ? ((Number) result[2]).longValue() : 0L);
+                service.setImageUrl(result[3] != null ? (String) result[3] : null);
+                service.setRatingCount(result[4] != null ? ((Number) result[4]).longValue() : 0L);
 
                 popularServicesList.add(service);
             }
         }
-
         return popularServicesList;
     }
 }

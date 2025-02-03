@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/mostbooked")
+@RequestMapping("/api/popular-services")
 public class PopularServicesController {
 
     @Autowired
     private PopularServicesService popularServicesService;
 
-    @GetMapping("/services")
-    public List<PopularServices> getPopularServices() {
-        return popularServicesService.getTopFivePopularServices();
+    @GetMapping("/top-rated")
+    public List<PopularServices> getTopRatedServices() {
+        return popularServicesService.getTop5PopularServicesByRating();
     }
 }

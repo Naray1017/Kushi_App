@@ -11,17 +11,18 @@ import java.util.List;
 public interface PopularServicesRepository extends JpaRepository<PopularServices, Long> {
 
     @Query(value = """
-        SELECT b.Booking_Service_name AS serviceName,
-               AVG(r.RATING) AS rating, 
-               SUM(b.Booking_Amount) AS amount,
-               COUNT(b.Booking_Service_name) AS bookingCount,
-               MAX(si.IMAGE_URL) AS imageUrl  -- Use MAX to pick one image for each service
+        SELECT 
+            b.Booking_Service_Name AS serviceName,
+            SUM(b.Booking_Amount) AS amount,
+            COUNT(DISTINCT b.Booking_Id) AS bookingCount,
+            MAX(si.IMAGE_URL) AS imageUrl,
+            COUNT(DISTINCT b.CUSTOMER_ID) AS ratingCount  -- Unique customers who booked and rated
         FROM tbl_booking_info b
-        LEFT JOIN TBL_RATING r ON b.Booking_Service_name = r.SERVICE_NAME
-        LEFT JOIN tbl_service_info si ON b.Booking_Service_name = si.SERVICE_NAME
-        GROUP BY b.Booking_Service_name
-        ORDER BY SUM(b.Booking_Amount) DESC
-        LIMIT 5
-    """, nativeQuery = true)
-    List<Object[]> findTop5MostBookedServicesWithRatingAndImage();
+        LEFT JOIN tbl_service_info si ON b.Booking_Service_Name = si.SERVICE_NAME
+        WHERE si.RATING IS NOT NULL  -- Ensure service has a rating
+        GROUP BY b.Booking_Service_Name
+        ORDER BY COUNT(DISTINCT b.CUSTOMER_ID) DESC  -- Sort by highest rating count
+        LIMIT 5;
+        """, nativeQuery = true)
+    List<Object[]> findTop5PopularServicesByRating();
 }
