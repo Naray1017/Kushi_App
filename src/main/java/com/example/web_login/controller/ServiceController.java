@@ -1,75 +1,53 @@
 package com.example.web_login.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.web_login.entity.Serevice_add;
 import com.example.web_login.repo.Admin_repo;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 @Controller
 public class ServiceController {
 
-    @Autowired
-    private Admin_repo serviceRepository;
+	 @Autowired
+	    private Admin_repo admin_repo;
+    // This will handle GET requests for "/service"
+   
 
-    private static final String UPLOAD_DIR = "uploads/";
-
-    @GetMapping("/add-service")
-    public String showAddServiceForm1(Model model) {
-        model.addAttribute("service", new Serevice_add());
-        return "Addmin_Add_service"; // Ensure the view name matches the template
+    
+	 @GetMapping("/service")
+	 public ResponseEntity<List<Serevice_add>> getAllServices() {
+	     try {
+	         // Fetch the list of users or services from the repository
+	         List<Serevice_add> serviceList = admin_repo.findAll();
+	         
+	         // Check if the list is empty
+	         if (serviceList.isEmpty()) {
+	             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();  // No data found, return 204 No Content
+	         }
+	         
+	         // If data exists, return the list with 200 OK status
+	         return ResponseEntity.status(HttpStatus.OK).body(serviceList);
+	         
+	     } catch (Exception e) {
+	         // If any error occurs, return 500 Internal Server Error
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	     }
+	 }
+ 
+	 
+    // This will handle requests for "/service/another"
+    @RequestMapping("/service/another")
+    public String anotherService() {
+        return "anotherService";  // returns a view named 'anotherService.jsp' or 'anotherService.html'
     }
 
-    @PostMapping("/add-service")
-    public String addService(@ModelAttribute Serevice_add service, Model model) {
-        String imagePath = null;
-
-        try {
-            if (service.getImageFile() != null && !service.getImageFile().isEmpty()) {
-                // Validate file type
-                String contentType = service.getImageFile().getContentType();
-                if (contentType == null || !contentType.startsWith("image")) {
-                    model.addAttribute("error", "Invalid file type. Only image files are allowed.");
-                    return "Addmin_Add_service"; // Return to the form with error message
-                }
-
-                // Ensure the upload directory exists
-                Path uploadPath = Paths.get(UPLOAD_DIR);
-                if (!Files.exists(uploadPath)) {
-                    Files.createDirectories(uploadPath);
-                }
-
-                // Generate a unique file name
-                String fileName = System.currentTimeMillis() + "_" + service.getImageFile().getOriginalFilename();
-                Path filePath = uploadPath.resolve(fileName);
-
-                // Transfer the file to the directory
-                service.getImageFile().transferTo(filePath.toFile());
-                imagePath = filePath.toString(); // Save the file path
-            } else if (service.getImage() != null && !service.getImage().isEmpty()) {
-                imagePath = service.getImage(); // Use provided image URL if available
-            }
-
-            service.setImage(imagePath); // Set image path in the entity
-            serviceRepository.save(service); // Save the entity
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "File upload failed. Please try again.");
-            return "Addmin_Add_service"; // Return to the form with error message
-        }
-
-        return "redirect:/add-service?success"; // Redirect with success message
-    }
+    // You can also use more specific mappings (POST, PUT, etc.)
+    // @PostMapping, @PutMapping, etc.
 }

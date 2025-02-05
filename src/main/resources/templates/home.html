@@ -52,9 +52,26 @@
 	    <!-- Image Slider Section -->
 	    <div class="devi">
 	        
-	            <div class="likki">
-	                <img src="https://kushiservices.com/wp-content/uploads/2024/12/Untitled-1365-x-224-px-768x126.png" alt="Image 1" class="slider-image">
-	            </div>
+			<div class="likki">
+			    <img id="dynamicImage" alt="Dynamic Image" class="slider-image">
+			
+
+			<script>
+			    // Assuming you fetch data from an API
+			    fetch('http://localhost:1235/offer-images')  // Your API URL
+			        .then(response => response.json())
+			        .then(data => {
+			            // Assuming your API returns an array of images with a property 'offerImageUrl'
+			            const firstImageUrl = data[0]?.offerImageUrl;  // Fetch the URL of the first image
+
+			            if (firstImageUrl) {
+			                // Set the src attribute of the img tag dynamically
+			                document.getElementById('dynamicImage').src = firstImageUrl;
+			            }
+			        })
+			        .catch(error => console.error('Error fetching images:', error));
+			</script>
+			</div>
 
 
 
@@ -90,74 +107,59 @@
 	</main>	
 	
 	<section class="service-section">
-	  <h2>Most Booked Services</h2>
-	  <div class="service-grid">
-		<a href="/Service_Booking">
-		  <div class="service-item">
-		    <img src="https://kushiservices.com/wp-content/uploads/2024/08/2.png" alt="Balcony Cleaning">
-		    <div class="title">Balcony Cleaning</div>
-		    <div class="discount">20% OFF</div>
-		  </div>
-		</a>
+	    <h2>My  Services</h2>
+	    <div class="service-grid" id="service-grid">
+	        <!-- Service items will be dynamically added here -->
+	    </div>
+	
 
-	   <a href="#"> <div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/14.png" alt="Doors & Window Cleaning">
-	      <div class="title">Doors & Window Cleaning</div>
-	      <div class="discount">50% OFF</div>
-	    </div></a>
-		
-	   <a href="#"> <div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/9.png" alt="Fan Cleaning">
-	      <div class="title">Fan Cleaning</div>
-	    </div></a>
-		
-	    <a href="#"><div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/11.png" alt="Mattress Cleaning">
-	      <div class="title">Mattress Cleaning</div>
-	    </div></a>
-		
-	    <a href="#"><div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/12.png" alt="Bathroom Cleaning">
-	      <div class="title">Bathroom Cleaning</div>
-	    </div></a>
-	  </div>
+	<script>
+	    // Fetch the list of services from the backend
+	    fetch('/service')
+	        .then(response => {
+	            if (response.ok) {
+	                return response.json(); // Parse the JSON response
+	            } else {
+	                throw new Error('Failed to load services');
+	            }
+	        })
+	        .then(services => {
+	            const serviceGrid = document.getElementById('service-grid');
+
+	            // Loop through the services and create the HTML dynamically
+	            services.forEach(service => {
+	                const serviceItem = document.createElement('a');
+	                serviceItem.href = '/Service_Booking';
+
+	                const serviceCard = document.createElement('div');
+	                serviceCard.classList.add('service-item');
+
+	                const serviceImage = document.createElement('img');
+	                serviceImage.src = service.serviceImageUrl;
+	                serviceImage.alt = service.serviceName;
+
+	                const serviceTitle = document.createElement('div');
+	                serviceTitle.classList.add('title');
+	                serviceTitle.textContent = service.serviceName;
+
+	                const serviceDiscount = document.createElement('div');
+	                serviceDiscount.classList.add('discount');
+	                serviceDiscount.textContent = service.serviceDescription || 'No discount'; // Optional description
+
+	                serviceCard.appendChild(serviceImage);
+	                serviceCard.appendChild(serviceTitle);
+	                serviceCard.appendChild(serviceDiscount);
+
+	                serviceItem.appendChild(serviceCard);
+	                serviceGrid.appendChild(serviceItem);
+	            });
+	        })
+	        .catch(error => {
+	            console.error('Error fetching services:', error);
+	        });
+	</script>
+
 	</section>
-	<section class="service-section-1">
-	  <h3>Best Cleaning Services In Bangalore</h3>
-	  <div class="service-grid">
-	    <a href="#"><div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/7.png" alt="Floor Polishing">
-	      <div class="title">Floor Polishing</div>
-	      <div class="discount">20% OFF</div>
-	    </div></a>
-		
-	   <a href="#"> <div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/Crimson-5.png" alt="Water Tank Cleaning">
-	      <div class="title">Water Tank Cleaning</div>
-	      <div class="discount">35% OFF</div>
-	    </div></a>
-		
-	   <a href="#"> <div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/3.png" alt="Home Cleaning">
-	      <div class="title">Home Cleaning</div>
-	      <div class="discount">30% OFF</div>
-	    </div></a>
-		
-	    <a href="#"><div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/4-1.png" alt="Office Cleaning">
-	      <div class="title">Office Cleaning</div>
-	      <div class="discount">20% OFF</div>
-	    </div></a>
-		
-	   <a href="#"> <div class="service-item">
-	      <img src="https://kushiservices.com/wp-content/uploads/2024/08/2.png" alt="Carpet Cleaning">
-	      <div class="title">Carpet Cleaning</div>
-	      <div class="discount">20% OFF</div>
-	    </div></a>
-	  </div>
-	</section>
-	
-	
 	
 
 	

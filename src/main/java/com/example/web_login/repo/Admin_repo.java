@@ -9,4 +9,6 @@ import com.example.web_login.entity.Serevice_add;
 @Repository
 public interface Admin_repo extends JpaRepository<Serevice_add,String> {
 
+	 int countByServiceId(Long service_Id);
+	 
 }
