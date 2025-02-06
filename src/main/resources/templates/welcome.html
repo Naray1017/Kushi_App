@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kushi</title>
+    <link rel="stylesheet" type="text/css" href="css/styles1.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+</head>
+<body>
+<header class="header">
+    <nav>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="Welcome.html"><img src="/images/Bredon.jpeg" alt="Kushi Logo"></a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <label for="search-input" class="sr-only">Search</label>
+            <input type="text" id="search-input" placeholder="Search..." class="search-input">
+            <button type="submit" class="search-button">Search</button>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-links" id="nav-links">
+            <i class="fa fa-times" onclick="hidemenu()"></i>
+            <ul>
+                <li><a href="">HOME</a></li>
+                <li><a href="about">ABOUT</a></li>
+                <li><a href="residential cleaning">RESIDENTIAL CLEANING</a></li>
+                <li><a href="commercial cleaning">COMMERCIAL CLEANING</a></li>
+                <li><a href="pest control">PEST CONTROL</a></li>
+                <li><a href="other services">OTHER SERVICES</a></li>
+                <li><a href="vlog">VLOG</a></li>
+                <li><a href="users">ADMIN</a></li>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showmenu()"></i>
+    </nav>
+</header>
+
+<!-- Offer Image Section -->
+<section class="offer-section">
+    <h2>Special Offer!</h2>
+    <div class="offer-content">
+        <span class="offer-number">1</span> <!-- Number above the image -->
+        <img src="/images/Bredon.jpeg" alt="Special Offer Image">
+    </div>
+</section>
+
+<script>
+    // JavaScript for menu toggle
+    function showmenu() {
+        document.getElementById('nav-links').style.right = "0";
+    }
+
+    function hidemenu() {
+        document.getElementById('nav-links').style.right = "-200px";
+    }
+</script>
+</body>
+</html>
