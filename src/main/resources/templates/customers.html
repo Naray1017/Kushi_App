@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List - Kushi Dashboard</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" type="text/css" href="css/customers.css">
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <img src="https://kushiservices.com/wp-content/uploads/2024/01/cropped-Crimson-1.png" alt="Kushi Hygiene Services">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="/customers" class="active">Customer</a></li>
+            <li><a href="#">Bookings</a></li>
+            <li><a href="/invoice" class="active">Invoices</a></li>
+            <li><a href="#">Google Analytics</a></li>
+            <li><a href="#">Financial Management</a></li>
+            <li><a href="#">Reports & Analytics</a></li>
+            <li><a href="#">Settings</a></li><br><hr>
+            <li><a href="#">Sign Out</a></li>
+            <li><a href="#">Help</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="main-content">
+    <h2 class="header-title">Customers</h2>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by ID, Name, or Email">
+        <button onclick="searchCustomer()">Search</button>
+    </div>
+
+
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-button active" onclick="fetchCustomers('all')">All Customers</button>
+        <button class="tab-button" onclick="fetchCustomers('top')">Top Customers</button>
+    </div>
+
+    <!-- Customer Table -->
+    <div id="all" class="tab-content active">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Total Spent</th>
+            </tr>
+            </thead>
+            <tbody id="tbl_booking_info"></tbody>
+        </table>
+    </div>
+
+    <div id="top" class="tab-content">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Total Spent</th>
+            </tr>
+            </thead>
+            <tbody id="tbl_booking_info"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchCustomers('all');
+    });
+
+    function fetchCustomers(type) {
+        const url = type === 'top'
+            ? "http://localhost:8080/api/customers/top"
+            : "http://localhost:8080/api/customers";
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => displayCustomers(data, type))
+            .catch(error => console.error("Error fetching customer data:", error));
+
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.tab-button:nth-child(${type === 'top' ? 2 : 1})`).classList.add('active');
+    }
+
+    function displayCustomers(data, type) {
+        const tableBody = document.getElementById("tbl_booking_info");
+        tableBody.innerHTML = "";
+        if (data.length === 0) {
+            tableBody.innerHTML = "<tr><td colspan='7'>No customers found</td></tr>";
+            return;
+        }
+        data.forEach(customer => {
+            let row = `<tr>
+                <td>${customer.id}</td>
+                <td>${customer.firstName}</td>
+                <td>${customer.lastName}</td>
+                <td>${customer.email}</td>
+                <td>${customer.phone}</td>
+                <td>${customer.address}</td>
+                <td>₹${customer.totalSpent || "0.00"}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    function searchCustomer() {
+        const searchValue = document.getElementById("searchInput").value.toLowerCase();
+        fetch("http://localhost:8080/api/customers")
+            .then(response => response.json())
+            .then(data => {
+                const filteredData = data.filter(customer =>
+                    customer.id.toString().includes(searchValue) ||
+                    customer.firstName.toLowerCase().includes(searchValue) ||
+                    customer.email.toLowerCase().includes(searchValue)
+                );
+                displayCustomers(filteredData, 'all');
+            })
+            .catch(error => console.error("Error searching customer data:", error));
+    }
+</script>
+</body>
+</html>

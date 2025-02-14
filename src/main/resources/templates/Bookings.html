@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUSHI Bookings</title>
+    <link rel="stylesheet" href="css/Booking.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="sidebar">
+    <h2 class="logo">KUSHI</h2>
+    <ul>
+        <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fas fa-users"></i> Customer</a></li>
+        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+        <li><a href="#"><i class="fas fa-file-invoice"></i> Invoices</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> Google Analytics</a></li>
+        <li><a href="#"><i class="fas fa-wallet"></i> Financial Management</a></li>
+        <li><a href="#"><i class="fas fa-chart-bar"></i> Reports & Analytics</a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+        <li class="bottom"><a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+        <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="top-bar">
+        <div class="search-box">
+            <input type="text" placeholder="Search Here">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="user-profile">
+            <i class="fas fa-bell"></i>
+            <img src="user.jpg" alt="User">
+            <span>Jerome</span>
+        </div>
+    </div>
+
+    <div class="bookings">
+        <h2>Bookings</h2>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'total')">Total Bookings (<span id="totalCount">0</span>)</button>
+            <button class="tab-button" onclick="openTab(event, 'new')">New Bookings (<span id="newCount">0</span>)</button>
+            <button class="tab-button" onclick="openTab(event, 'visit')">Visit Bookings (<span id="visitCount">0</span>)</button>
+            <button class="tab-button" onclick="openTab(event, 'confirmed')">Confirmed Bookings (<span id="confirmedCount">0</span>)</button>
+            <button class="tab-button" onclick="openTab(event, 'completed')">Completed Bookings (<span id="completedCount">0</span>)</button>
+        </div>
+
+        <div id="total" class="tab-content active">
+            <h3>Total Bookings</h3>
+            <table>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Customer ID</th>
+                    <th>Service Name</th>
+                    <th>Customer Name</th>
+                    <th>Reference Name</th>
+                    <th>Reference Details</th>
+                    <th>Customer Number</th>
+                    <th>City</th>
+                    <th>Booking Date</th>
+                    <th>Booking Status</th>
+                    <th>Payment Status</th>
+                    <th>Booking Amount</th>
+                    <th>Total Amount</th>
+                    <th>Created By</th>
+                    <th>Remarks</th>
+                </tr>
+                <tbody id="totalBookings"></tbody>
+            </table>
+        </div>
+        <div id="new" class="tab-content">
+            <h3>New Bookings</h3>
+            <table>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Service Name</th>
+                    <th>Booking Status</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="newBookings"></tbody>
+            </table>
+        </div>
+
+        <div id="visit" class="tab-content">
+            <h3>Visit Bookings</h3>
+            <table>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Service Name</th>
+                    <th>Booking Status</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="visitBookings"></tbody>
+            </table>
+        </div>
+
+        <div id="confirmed" class="tab-content">
+            <h3>Confirmed Bookings</h3>
+            <table>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Service Name</th>
+                    <th>Booking Status</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="confirmedBookings"></tbody>
+            </table>
+        </div>
+
+        <div id="completed" class="tab-content">
+            <h3>Completed Bookings</h3>
+            <table>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Service Name</th>
+                    <th>Booking Status</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="completedBookings"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function fetchBookings() {
+        try {
+            const response = await fetch('http://localhost:8080/api/bookings');
+            const data = await response.json();
+
+            let totalBookings = document.getElementById("totalBookings");
+            totalBookings.innerHTML = "";
+
+            let count = { total: 0, new: 0, visit: 0, confirmed: 0, completed: 0 };
+
+            data.forEach(booking => {
+                let row = `<tr>
+                    <td>${booking.bookingId}</td>
+                    <td>${booking.customerId}</td>
+                    <td>${booking.bookingServiceName}</td>
+                    <td>${booking.customerName}</td>
+                    <td>${booking.referenceName || '-'} </td>
+                    <td>${booking.referenceDetails || '-'} </td>
+                    <td>${booking.customerNumber}</td>
+                    <td>${booking.city}</td>
+                    <td>${booking.bookingDate}</td>
+                    <td>${booking.bookingStatus}</td>
+                    <td>${booking.paymentStatus}</td>
+                    <td>₹${booking.bookingAmount}</td>
+                    <td>₹${booking.totalAmount}</td>
+                    <td>${booking.createdBy}</td>
+                    <td>${booking.remarks || '-'} </td>
+                </tr>`;
+                totalBookings.innerHTML += row;
+                count.total++;
+                if (booking.bookingStatus.toLowerCase() === "pending") count.new++;
+                if (booking.bookingStatus.toLowerCase() === "visit") count.visit++;
+                if (booking.bookingStatus.toLowerCase() === "confirmed") count.confirmed++;
+                if (booking.bookingStatus.toLowerCase() === "completed") count.completed++;
+            });
+
+            Object.keys(count).forEach(key => {
+                let element = document.getElementById(${key}Count);
+                if (element) element.innerText = count[key];
+            });
+
+        } catch (error) {
+            console.error('Error fetching bookings:', error);
+        }
+    }
+
+    async function fetchNewBookings() {
+        try {
+            const response = await fetch('http://localhost:8080/api/pending');
+            const data = await response.json();
+
+            let newBookingsTable = document.getElementById("newBookings");
+            newBookingsTable.innerHTML = "";
+
+            if (data.length === 0) {
+                newBookingsTable.innerHTML = "<tr><td colspan='6'>No New Bookings</td></tr>";
+                return;
+            }
+
+            data.forEach(booking => {
+                let row = `<tr>
+                    <td>${booking.customerId}</td>
+                    <td>${booking.customerName}</td>
+                    <td>${booking.bookingServiceName}</td>
+                    <td>${booking.bookingStatus}</td>
+                    <td>₹${booking.bookingAmount}</td>
+                    <td><button onclick="confirmBooking(${booking.bookingId})">Confirm</button></td>
+                </tr>`;
+                newBookingsTable.innerHTML += row;
+            });
+        } catch (error) {
+            console.error('Error fetching new bookings:', error);
+        }
+    }
+
+    async function confirmBooking(bookingId) {
+        try {
+            const response = await fetch(http://localhost:8080/api/confirm/${bookingId}, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (response.ok) {
+                alert("Booking confirmed successfully!");
+                fetchNewBookings();
+                fetchConfirmedBookings();
+                fetchBookings();
+            } else {
+                alert("Error confirming booking");
+            }
+        } catch (error) {
+            console.error('Error confirming booking:', error);
+        }
+    }
+
+    async function fetchConfirmedBookings() {
+        try {
+            const response = await fetch('http://localhost:8080/api/confirmed');
+            const data = await response.json();
+
+            let confirmedBookingsTable = document.getElementById("confirmedBookings");
+            confirmedBookingsTable.innerHTML = "";
+
+            if (data.length === 0) {
+                confirmedBookingsTable.innerHTML = "<tr><td colspan='6'>No Confirmed Bookings</td></tr>";
+                return;
+            }
+
+            data.forEach(booking => {
+                let row = `<tr>
+                    <td>${booking.customerId}</td>
+                    <td>${booking.customerName}</td>
+                    <td>${booking.bookingServiceName}</td>
+                    <td>${booking.bookingStatus}</td>
+                    <td>₹${booking.bookingAmount}</td>
+                    <td><button onclick="completeBooking(${booking.bookingId})">Complete</button></td>
+                </tr>`;
+                confirmedBookingsTable.innerHTML += row;
+            });
+        } catch (error) {
+            console.error('Error fetching confirmed bookings:', error);
+        }
+    }
+
+    async function completeBooking(bookingId) {
+        try {
+            const response = await fetch(http://localhost:8080/api/complete/${bookingId}, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (response.ok) {
+                alert("Booking marked as Completed!");
+                fetchConfirmedBookings();
+                fetchCompletedBookings();
+            } else {
+                alert("Error marking booking as Completed");
+            }
+        } catch (error) {
+            console.error('Error completing booking:', error);
+        }
+    }
+
+    async function fetchCompletedBookings() {
+        try {
+            const response = await fetch('http://localhost:8080/api/completed');
+            const data = await response.json();
+
+            let completedBookingsTable = document.getElementById("completedBookings");
+            completedBookingsTable.innerHTML = "";
+
+            if (data.length === 0) {
+                completedBookingsTable.innerHTML = "<tr><td colspan='6'>No Completed Bookings</td></tr>";
+                return;
+            }
+
+            data.forEach(booking => {
+                let row = `<tr>
+                    <td>${booking.customerId}</td>
+                    <td>${booking.customerName}</td>
+                    <td>${booking.bookingServiceName}</td>
+                    <td>${booking.bookingStatus}</td>
+                    <td>₹${booking.bookingAmount}</td>
+                </tr>`;
+                completedBookingsTable.innerHTML += row;
+            });
+        } catch (error) {
+            console.error('Error fetching completed bookings:', error);
+        }
+    }
+
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+        document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    document.getElementById("total").style.display = "block";
+    fetchBookings();
+    fetchNewBookings();
+    fetchConfirmedBookings();
+    fetchCompletedBookings();
+
+</script>
+</body>
+</html>
