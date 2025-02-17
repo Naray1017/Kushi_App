@@ -99,6 +99,11 @@ public class UserController {
         return "admin";  
     }
     
+    @GetMapping("/settings")
+    public String adminn() {
+        return "settings";  
+    }
+    
     // service add data api
     
     @GetMapping("/Service_Booking/api")
@@ -557,4 +562,6 @@ public class UserController {
                                  .body("Error while deleting user: " + e.getMessage());
         }
     }
+    
+    
 }

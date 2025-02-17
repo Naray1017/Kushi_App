@@ -1,19 +1,13 @@
 package com.example.web_login.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springboot_registerationform.repo.UserRepo;
 import com.example.web_login.entity.User;
-import com.example.web_login.repo.UserLoginRepository;
 import com.example.web_login.repo.Userrepo;
 
 import jakarta.persistence.EntityManager;
@@ -22,13 +16,14 @@ import jakarta.persistence.Query;
 @Service
 public class Userimp {
     
+    private final EntityManager entityManager;
+    private final Userrepo userRepo;
+
     @Autowired
-    private EntityManager entityManager;
-    
-    
-    
-    @Autowired
-    private UserLoginRepository userLoginRepository;
+    public Userimp(EntityManager entityManager, Userrepo userRepo) {
+        this.entityManager = entityManager;
+        this.userRepo = userRepo;
+    }
 
     // This method retrieves top customers based on booking count
     public List<Map<String, Object>> getTopCustomers(LocalDate startDate) {
@@ -69,13 +64,13 @@ public class Userimp {
                        "       u.PROFILE_PICTURE AS profilePicture, " +
                        "       COUNT(b.BOOKING_ID) AS bookingCount, " +
                        "       MAX(b.BOOKING_DATE) AS bookingDate, " +
-                       "       MAX(b.BOOKING_TIME) AS bookingTime, " + // Selecting BOOKING_TIME
+                       "       MAX(b.BOOKING_TIME) AS bookingTime, " +
                        "       b.BOOKING_SERVICE_NAME AS bookingServiceName " +
                        "FROM TBL_BOOKING_INFO b " +
                        "JOIN USER_LOGIN_INFO u ON b.CUSTOMER_ID = u.USER_ID " +
                        (startDate != null ? "WHERE b.BOOKING_DATE >= :startDate " : "") +
                        "GROUP BY u.USER_ID, u.USER_FIRST_NAME, u.PROFILE_PICTURE, b.BOOKING_SERVICE_NAME " +
-                       "ORDER BY MAX(b.BOOKING_DATE) DESC"; // Ordering by the latest booking date
+                       "ORDER BY MAX(b.BOOKING_DATE) DESC";
 
         Query nativeQuery = entityManager.createNativeQuery(query);
 
@@ -90,12 +85,12 @@ public class Userimp {
         for (Object[] row : results) {
             Map<String, Object> customer = new HashMap<>();
             customer.put("userId", row[0]);
-            customer.put("name", row[1]); // Mapping firstName to name
-            customer.put("imageUrl", row[2]); // Mapping profilePicture to imageUrl
+            customer.put("name", row[1]); 
+            customer.put("imageUrl", row[2]); 
             customer.put("bookingCount", row[3]);
-            customer.put("bookingDate", row[4]); // Adding bookingDate
-            customer.put("bookingTime", row[5]); // Adding bookingTime
-            customer.put("bookingServiceName", row[6]); // Adding bookingServiceName
+            customer.put("bookingDate", row[4]); 
+            customer.put("bookingTime", row[5]); 
+            customer.put("bookingServiceName", row[6]); 
             topCustomers.add(customer);
         }
 
@@ -104,26 +99,18 @@ public class Userimp {
 
     // Register method if needed
     public void register(User user) {
-        // Logic to register the user
-    }
-    public double getTOTAL_AMOUNT() {
-        return getTOTAL_AMOUNT();
+        userRepo.save(user);
     }
     
-    @Autowired
-
-    private  Userrepo userRepo;
-
-    public void UserService(Userrepo userRepo) {
-        this.userRepo = userRepo;
+    public double getTOTAL_AMOUNT(User user) {
+        return user.getTOTAL_AMOUNT();
     }
 
     public List<Map<String, Object>> getServiceReport() {
-        List<User> bookings = userRepo.findAll(); // Fetch all bookings
+        List<User> bookings = userRepo.findAll(); 
 
-        // Group bookings by service name
         Map<String, List<User>> groupedBookings = bookings.stream()
-            .filter(user -> user.getBOOKING_SERVICE_NAME() != null) // Avoid null service names
+            .filter(user -> user.getBOOKING_SERVICE_NAME() != null) 
             .collect(Collectors.groupingBy(User::getBOOKING_SERVICE_NAME, LinkedHashMap::new, Collectors.toList()));
 
         List<Map<String, Object>> result = new ArrayList<>();
@@ -133,10 +120,10 @@ public class Userimp {
             List<User> serviceBookings = entry.getValue();
 
             double totalRevenue = serviceBookings.stream()
-                .mapToDouble(User::getTOTAL_AMOUNT) // Sum up total amounts
+                .mapToDouble(User::getTOTAL_AMOUNT) 
                 .sum();
 
-            int bookingCount = serviceBookings.size(); // Count bookings
+            int bookingCount = serviceBookings.size(); 
 
             Map<String, Object> map = new HashMap<>();
             map.put("serviceName", serviceName);
@@ -146,6 +133,5 @@ public class Userimp {
             result.add(map);
         }
         return result;
-    
-}
+    }
 }

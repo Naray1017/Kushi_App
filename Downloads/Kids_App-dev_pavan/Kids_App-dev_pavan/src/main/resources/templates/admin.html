@@ -108,72 +108,123 @@
 
 
                 <br>
+				
+				<div class="card statistics">
+									<div class="overview-header">
+								    <h3>Statistic</h3>
+									
+																		    </div>
+								    <canvas id="myChart" class="chart-placeholder"></canvas>
+								</div>
+								<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+								<script>
+								    let myChart;
 
-				<div class="card">
-				    <div class="overview-header">
-				        <h3>Top Customers</h3>
-				        
-				    </div>
-				    <div class="customers" id="customerList">
-				        <!-- Dynamically generated customer data will go here -->
-				    </div>
-				</div>
+								    // Update the overview based on the selected time period
+								    async function updateOverview() {
+								        const timePeriod = document.getElementById('timePeriod').value; // Get selected time period
 
-				<script>
-					function updateOverview() {
-					    const timePeriod = document.getElementById("timePeriod").value;
-					    const url = `/api/getTopCustomers?timePeriod=${timePeriod}`;
+								        try {
+								            // Fetch data from the backend with the selected time period
+								            const response = await fetch(`/statistics?timePeriod=${timePeriod}`);
+								            if (!response.ok) {
+								                throw new Error('Failed to fetch data');
+								            }
+								            const data = await response.json();
 
-					    fetch(url)
-					        .then(response => {
-					            if (!response.ok) {
-					                throw new Error('Failed to fetch data');
-					            }
-					            return response.json();
-					        })
-					        .then(data => {
-					            console.log('Fetched data:', data);
+								            // Log the fetched data for inspection
+								            console.log(data);
 
-					            if (!Array.isArray(data) || data.length === 0) {
-					                console.error("No customers data available or invalid data format.");
-					                document.getElementById("customerList").innerHTML = "<p>No data available.</p>";
-					                return;
-					            }
+								            // Check if the response contains valid data
+								            if (!data || !data.labels || !data.data) {
+								                console.error("Invalid data format", data);
+								                return;
+								            }
 
-					            const customerList = document.getElementById("customerList");
-					            customerList.innerHTML = "";
+								            // Prepare chart data
+								            const labels = data.labels;  // Service names
+								            const dataset = data.data;   // Revenue amounts
 
-					            // Limit to only 5 customers
-					            data.slice(0, 5).forEach(customer => {
-					                const customerDiv = document.createElement("div");
-					                customerDiv.classList.add("customer");
+								            // Update the total booking amount and number of customers
+								            if (data.totalBookingAmount !== undefined) {
+								                document.getElementById('income-value').textContent = `₹${data.totalBookingAmount.toFixed(2)}`;
+								            } else {
+								               
+								            }
 
-					                const img = document.createElement("img");
-					                img.src = customer.imageUrl.startsWith("http") ? customer.imageUrl : "/images/" + customer.imageUrl;
-					                img.alt = customer.name;
-					                customerDiv.appendChild(img);
+								            if (data.totalCustomers !== undefined) {
+								                document.getElementById('customers-value').textContent = data.totalCustomers;
+								            } else {
+								                
+								            }
 
-					                const nameParagraph = document.createElement("p");
-					                nameParagraph.textContent = customer.name;
-					                customerDiv.appendChild(nameParagraph);
+								            // If there's no data for any service, display an empty chart
+								            if (labels.length === 0 || dataset.length === 0) {
+								                console.warn("No data to display");
+								                return;
+								            }
 
-					                customerList.appendChild(customerDiv);
-					            });
-					        })
-					        .catch(error => {
-					            console.error('Error fetching data:', error);
-					            document.getElementById("customerList").innerHTML = "<p>Error loading data. Please try again later.</p>";
-					        });
-					}
+								            // Update chart
+								            if (myChart) {
+								                myChart.destroy();  // Destroy the old chart if exists
+								            }
 
-					// Initial load
-					updateOverview();
+								            const ctx = document.getElementById("myChart").getContext("2d");
+								            myChart = new Chart(ctx, {
+								                type: "bar",
+								                data: {
+								                    labels: labels, // X-axis labels (service names)
+								                    datasets: [
+								                        {
+								                            label: "Revenue (₹)",
+								                            data: dataset, // Y-axis data (revenue amounts)
+								                            backgroundColor: [
+								                                "rgba(75, 192, 192, 0.2)", // Service A color
+								                                "rgba(54, 162, 235, 0.2)", // Service B color
+								                                "rgba(255, 206, 86, 0.2)"  // Service C color
+								                            ],
+								                            borderColor: [
+								                                "rgba(75, 192, 192, 1)", // Service A border color
+								                                "rgba(54, 162, 235, 1)", // Service B border color
+								                                "rgba(255, 206, 86, 1)"  // Service C border color
+								                            ],
+								                            borderWidth: 1,
+								                        },
+								                    ],
+								                },
+								                options: {
+								                    responsive: true,
+								                    plugins: {
+								                        legend: {
+								                            display: true, // Show legend
+								                            position: "top", // Position of the legend
+								                        },
+								                    },
+								                    scales: {
+								                        x: {
+								                            stacked: false, // Set true for stacked bars, false for grouped bars
+								                        },
+								                        y: {
+								                            beginAtZero: true, // Ensure Y-axis starts at 0
+								                        },
+								                    },
+								                },
+								            });
+								        } catch (error) {
+								            console.error('Error:', error);
+								            document.getElementById('income-value').textContent = 'Error loading data';
+								            document.getElementById('customers-value').textContent = 'Error loading data';
+								        }
+								    }
 
-					// Update customer list when the time period changes
-					document.getElementById("timePeriod").addEventListener("change", updateOverview);
-	</script>
+								    // Automatically load data for the default (all-time) selection on page load
+								    document.addEventListener('DOMContentLoaded', updateOverview);
 
+								    // Update the overview when the time period selection changes
+								    document.getElementById('timePeriod').addEventListener('change', updateOverview);
+								</script>
 
+				
 
                 <br>
                 <div class="card new-bookings">
@@ -258,7 +309,7 @@
             <div>
 				<div class="card popular-services">
 				    <div class="overview-header">
-				        <h3>Popular Services</h3>
+				        <h3>Tope Rating Services</h3>
 				       
 				    </div>
 				    <ul id="service-list"></ul> <!-- Dynamic list will be inserted here -->
@@ -397,121 +448,76 @@
 
                 <br>
 				
-				
-				<div class="card statistics">
-					<div class="overview-header">
-				    <h3>Statistic</h3>
+				<div class="card">
+								    <div class="overview-header">
+								        <h3>Top Customers</h3>
+								        
+								    </div>
+								    <div class="customers" id="customerList">
+								        <!-- Dynamically generated customer data will go here -->
+								    </div>
+								</div>
+
+								<script>
+									function updateOverview() {
+									    const timePeriod = document.getElementById("timePeriod").value;
+									    const url = `/api/getTopCustomers?timePeriod=${timePeriod}`;
+
+									    fetch(url)
+									        .then(response => {
+									            if (!response.ok) {
+									                throw new Error('Failed to fetch data');
+									            }
+									            return response.json();
+									        })
+									        .then(data => {
+									            console.log('Fetched data:', data);
+
+									            if (!Array.isArray(data) || data.length === 0) {
+									                console.error("No customers data available or invalid data format.");
+									                document.getElementById("customerList").innerHTML = "<p>No data available.</p>";
+									                return;
+									            }
+
+									            const customerList = document.getElementById("customerList");
+									            customerList.innerHTML = "";
+
+									            // Limit to only 5 customers
+									            data.slice(0, 5).forEach(customer => {
+									                const customerDiv = document.createElement("div");
+									                customerDiv.classList.add("customer");
+
+									                const img = document.createElement("img");
+									                img.src = customer.imageUrl.startsWith("http") ? customer.imageUrl : "/images/" + customer.imageUrl;
+									                img.alt = customer.name;
+									                customerDiv.appendChild(img);
+
+									                const nameParagraph = document.createElement("p");
+									                nameParagraph.textContent = customer.name;
+									                customerDiv.appendChild(nameParagraph);
+
+									                customerList.appendChild(customerDiv);
+									            });
+									        })
+									        .catch(error => {
+									            console.error('Error fetching data:', error);
+									            document.getElementById("customerList").innerHTML = "<p>Error loading data. Please try again later.</p>";
+									        });
+									}
+
+									// Initial load
+									updateOverview();
+
+									// Update customer list when the time period changes
+									document.getElementById("timePeriod").addEventListener("change", updateOverview);
+					</script>
 					
-														    </div>
-				    <canvas id="myChart" class="chart-placeholder"></canvas>
-				</div>
-				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-				<script>
-				    let myChart;
+					<br>
 
-				    // Update the overview based on the selected time period
-				    async function updateOverview() {
-				        const timePeriod = document.getElementById('timePeriod').value; // Get selected time period
+					
 
-				        try {
-				            // Fetch data from the backend with the selected time period
-				            const response = await fetch(`/statistics?timePeriod=${timePeriod}`);
-				            if (!response.ok) {
-				                throw new Error('Failed to fetch data');
-				            }
-				            const data = await response.json();
-
-				            // Log the fetched data for inspection
-				            console.log(data);
-
-				            // Check if the response contains valid data
-				            if (!data || !data.labels || !data.data) {
-				                console.error("Invalid data format", data);
-				                return;
-				            }
-
-				            // Prepare chart data
-				            const labels = data.labels;  // Service names
-				            const dataset = data.data;   // Revenue amounts
-
-				            // Update the total booking amount and number of customers
-				            if (data.totalBookingAmount !== undefined) {
-				                document.getElementById('income-value').textContent = `₹${data.totalBookingAmount.toFixed(2)}`;
-				            } else {
-				               
-				            }
-
-				            if (data.totalCustomers !== undefined) {
-				                document.getElementById('customers-value').textContent = data.totalCustomers;
-				            } else {
-				                
-				            }
-
-				            // If there's no data for any service, display an empty chart
-				            if (labels.length === 0 || dataset.length === 0) {
-				                console.warn("No data to display");
-				                return;
-				            }
-
-				            // Update chart
-				            if (myChart) {
-				                myChart.destroy();  // Destroy the old chart if exists
-				            }
-
-				            const ctx = document.getElementById("myChart").getContext("2d");
-				            myChart = new Chart(ctx, {
-				                type: "bar",
-				                data: {
-				                    labels: labels, // X-axis labels (service names)
-				                    datasets: [
-				                        {
-				                            label: "Revenue (₹)",
-				                            data: dataset, // Y-axis data (revenue amounts)
-				                            backgroundColor: [
-				                                "rgba(75, 192, 192, 0.2)", // Service A color
-				                                "rgba(54, 162, 235, 0.2)", // Service B color
-				                                "rgba(255, 206, 86, 0.2)"  // Service C color
-				                            ],
-				                            borderColor: [
-				                                "rgba(75, 192, 192, 1)", // Service A border color
-				                                "rgba(54, 162, 235, 1)", // Service B border color
-				                                "rgba(255, 206, 86, 1)"  // Service C border color
-				                            ],
-				                            borderWidth: 1,
-				                        },
-				                    ],
-				                },
-				                options: {
-				                    responsive: true,
-				                    plugins: {
-				                        legend: {
-				                            display: true, // Show legend
-				                            position: "top", // Position of the legend
-				                        },
-				                    },
-				                    scales: {
-				                        x: {
-				                            stacked: false, // Set true for stacked bars, false for grouped bars
-				                        },
-				                        y: {
-				                            beginAtZero: true, // Ensure Y-axis starts at 0
-				                        },
-				                    },
-				                },
-				            });
-				        } catch (error) {
-				            console.error('Error:', error);
-				            document.getElementById('income-value').textContent = 'Error loading data';
-				            document.getElementById('customers-value').textContent = 'Error loading data';
-				        }
-				    }
-
-				    // Automatically load data for the default (all-time) selection on page load
-				    document.addEventListener('DOMContentLoaded', updateOverview);
-
-				    // Update the overview when the time period selection changes
-				    document.getElementById('timePeriod').addEventListener('change', updateOverview);
-				</script>
+				
+				
 
 				
             </div>

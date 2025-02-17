@@ -91,7 +91,7 @@
 	<script>
 	    async function fetchInvoices() {
 	        try {
-	            const response = await fetch("http://localhost:8080/api/invoices");
+	            const response = await fetch("http://localhost:1235/invoices");
 	            if (!response.ok) throw new Error("Failed to fetch invoices.");
 	            const invoices = await response.json();
 	            displayInvoices(invoices);
