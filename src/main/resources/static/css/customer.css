@@ -1,0 +1,120 @@
+body {
+           font-family: Arial, sans-serif;
+           margin: 0;
+           padding: 0;
+           display: flex;
+       }
+       .content {
+           margin-left: 300px;
+           padding: 20px;
+           width: 100%;
+       }
+       h2 {
+           text-align: center;
+       }
+      /* Default Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2; /* Light background for light mode */
+    color: #333; /* Dark text for light mode */
+}
+
+img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Dark Mode - Table Header */
+.dark-mode table th {
+    background-color: #333; /* Dark background for table header */
+    color: #fff; /* Light text for clarity */
+}
+
+.dark-mode table td {
+    background-color: #444; /* Dark background for table cells */
+    color: #fff; /* Light text for better visibility */
+}
+
+.dark-mode table, .dark-mode th, .dark-mode td {
+    border-color: #555; /* Darker border for dark mode */
+}
+
+       .search-container {
+           text-align: center;
+           margin-bottom: 20px;
+       }
+       .search-container input {
+           padding: 8px;
+           width: 300px;
+           border: 1px solid #ddd;
+           border-radius: 4px;
+       }
+       .highlight {
+           background-color: yellow;
+       }
+        /* Dark Mode - Global Styles */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+/* Dark mode for all containers */
+
+.dark-mode .customer-container {
+    background: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    }
+
+/* Dark mode for sidebar */
+.dark-mode .left-side {
+    background: #222;
+    color: white;
+}
+
+/* Dark mode for sidebar links */
+.dark-mode .sidebar ul li a {
+    color: #ddd;
+}
+
+/* Dark mode for settings items */
+.dark-mode .setting {
+    background: #444;
+}
+
+/* Default sidebar styles */
+.sidebar ul li a {
+    color: black; /* Default color in light mode */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+/* Dark mode sidebar background */
+.dark-mode .sidebar {
+    background: #222; /* Dark background */
+}
+
+/* Dark mode sidebar text (Make it clearly visible) */
+.dark-mode .sidebar ul li a {
+    color: white; /* Change text to white */
+    font-weight: bold; /* Make it stand out */
+}
+
+/* Optional: Improve visibility of active link in dark mode */
+.dark-mode .sidebar ul li a.active {
+    color: #4caf50; /* Light green for active link */
+}

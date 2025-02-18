@@ -1,0 +1,119 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main content container (for both form and table) */
+.container {
+    margin-left: 270px; /* Space for sidebar */
+    padding: 20px;
+    max-width: 600px; /* Adjusted for smaller width */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px; /* Adjusted for smaller padding */
+    padding-right: 20px; /* Adjusted for smaller padding */
+}
+
+/* Add Service Form */
+/* Center <h2> elements */
+h2 {
+    text-align: center; /* Center text horizontally */
+    margin: 0 auto; /* Automatically adjusts left and right margins */
+    font-size: 24px; /* Adjust the font size as needed */
+    width: fit-content; /* Ensures the width of the element adjusts to content */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 500px; /* Adjusted max width */
+    margin: 0 auto;
+}
+
+/* Form groups (Spacing between label and input) */
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels (Displayed above the box) */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555; /* Default color */
+}
+
+/* Required field indicator */
+.required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
+
+/* Input and textarea styling (Below the label) */
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-bottom: 15px; /* Adds space between input fields */
+}
+
+/* Button styling */
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Button hover effect */
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark Mode - Global Styles */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+/* Dark mode for form inputs */
+.dark-mode form input,
+.dark-mode form textarea,
+.dark-mode form select {
+    background-color: #444; /* Dark background for form fields */
+    color: white; /* White text color */
+    border: 1px solid #555; /* Darker border for form fields */
+}
+
+/* Dark mode for labels (white in dark mode) */
+.dark-mode form label {
+    color: white; /* White text for labels */
+}
+
+/* Dark mode for button */
+.dark-mode form button {
+    background-color: #007BFF;
+    color: white;
+}
+
+.dark-mode form button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
+    
+</head>
+
+<body>
+    <div class="profile-container">
+        <div class="profile-card">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile Picture" class="profile-pic">
+            <h2>John Doe</h2>  <!-- Replace with actual name -->
+            <p>ID: 123456</p>  <!-- Replace with actual ID -->
+        </div>
+    </div>
+    
+    <script>
+    // Function to apply dark mode on profile page
+    function applyDarkMode() {
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
+        }
+    }
+
+    // Apply dark mode on page load
+    applyDarkMode();
+
+    // Listen for changes from the settings page
+    window.addEventListener("storage", function(event) {
+        if (event.key === "darkModeUpdated") {
+            applyDarkMode(); // Apply change immediately
+        }
+    });
+</script>
+
+</body>
+</html>
