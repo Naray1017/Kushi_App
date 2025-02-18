@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<<<<<<< HEAD
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+=======
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+>>>>>>> origin/dev_ram
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -33,11 +37,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+<<<<<<< HEAD
          <dependency>
         <groupId>jakarta.validation</groupId>
         <artifactId>jakarta.validation-api</artifactId>
         <version>3.0.0</version>
     </dependency>
+=======
+
+        <!-- Jakarta Validation API -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+>>>>>>> origin/dev_ram
 
         <!-- Hibernate Validator -->
         <dependency>
@@ -52,11 +66,20 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.0.0</version> <!-- Jakarta Validation API version -->
         </dependency>
+<<<<<<< HEAD
          <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>jakarta.el</artifactId>
         <version>4.0.0</version>
     </dependency>
+=======
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+>>>>>>> origin/dev_ram
 
         <!-- Spring Boot Starter Web (For web applications) -->
         <dependency>
@@ -64,6 +87,31 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+<<<<<<< HEAD
+=======
+        <!-- Spring Boot Security -->
+
+        <!-- Lombok Dependency -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version> <!-- Use the latest version -->
+            <scope>provided</scope>
+        </dependency>
+        <!-- JWT Library -->
+        
+
+        <!-- Lombok (Development-time only) -->
+
+
+        <!-- MySQL Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.29</version> <!-- Ensure this is the correct MySQL version -->
+        </dependency>
+
+>>>>>>> origin/dev_ram
         <!-- Spring Boot DevTools (For development only) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -72,6 +120,7 @@
             <optional>true</optional>
         </dependency>
 
+<<<<<<< HEAD
         <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
@@ -86,14 +135,25 @@
             <optional>true</optional>
         </dependency>
 
+=======
+>>>>>>> origin/dev_ram
         <!-- Spring Boot Starter Test (For testing purposes) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
 
         
+=======
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+        </dependency>
+
+>>>>>>> origin/dev_ram
     </dependencies>
 
     <build>

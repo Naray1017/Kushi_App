@@ -93,6 +93,7 @@ table {
        tr[data-status="Completed"] {
            background-color: blue;
            color: white;
+<<<<<<< HEAD
        }
        /* Dark Mode - Global Styles */
 .dark-mode {
@@ -147,3 +148,6 @@ table {
     color: #4caf50; /* Light green for active link */
 }
 
+=======
+       }
+>>>>>>> origin/dev_ram

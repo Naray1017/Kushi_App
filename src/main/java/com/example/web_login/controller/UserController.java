@@ -14,6 +14,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+<<<<<<< HEAD
+=======
+import com.example.web_login.entity.Login;
+import com.example.web_login.service.LoginService;
+import jakarta.servlet.http.HttpSession;
+>>>>>>> origin/dev_ram
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,12 +57,17 @@ public class UserController {
 
     @Autowired
     private Userimp userimp ;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev_ram
     @Autowired
     private  Admin_repo admoin_repo ;
 
     @Autowired
     private UserLoginRepository userLoginRepository;
+<<<<<<< HEAD
     
     @GetMapping("/")
     public String home() {
@@ -73,10 +84,29 @@ public class UserController {
     @GetMapping("/financialmanagement")
     public String financialmanagement() {
         return "financialmanagement";  
+=======
+
+    @GetMapping("/")
+    public String home() {
+        return "home";
+
+
+    }
+
+    @GetMapping("/Bookingss")
+    public String Bookings() {
+        return "Bookings";
+    }
+
+    @GetMapping("/financialmanagement")
+    public String financialmanagement() {
+        return "financialmanagement";
+>>>>>>> origin/dev_ram
     }
 
     @GetMapping("/1")
     public String Costomers1() {
+<<<<<<< HEAD
         return "Customers";  
     }
     
@@ -112,6 +142,39 @@ public class UserController {
     
     // service add data api
     
+=======
+        return "Customers";
+    }
+
+    @GetMapping("/addservice")
+    public String AddService() {
+        return "Add_Service";
+    }
+
+    @GetMapping("/Invoices")
+    public String Invoices() {
+        return "Invoices";
+    }
+
+    @GetMapping("/home2")
+    public String about() {
+        return "home2";
+    }
+    @GetMapping("/guru")
+    public String admin() {
+        return "admin";
+    }
+    @GetMapping("/Login")
+    public String Login() {
+        return "Login";
+    }
+    @GetMapping("/Logout")
+    public String Logout() {
+        return "Logout";
+    }
+    // service add data api
+
+>>>>>>> origin/dev_ram
     @GetMapping("/Service_Booking/api")
     public ResponseEntity<List<Serevice_add>> getAllServicesAsApi() {
         try {
@@ -143,9 +206,15 @@ public class UserController {
                                  .body("Error while adding user: " + e.getMessage());
         }
     }
+<<<<<<< HEAD
     
     // papular service data api
     
+=======
+
+    // papular service data api
+
+>>>>>>> origin/dev_ram
     @GetMapping("/api/services-details")
     public ResponseEntity<List<Map<String, Object>>> getServiceDetails() {
         try {
@@ -163,7 +232,11 @@ public class UserController {
             for (Serevice_add service : services) {
                 Map<String, Object> serviceData = new HashMap<>();
                 serviceData.put("serviceName", service.getServiceName());
+<<<<<<< HEAD
                 serviceData.put("rating", service.getRating() != null ? service.getRating() : "0"); 
+=======
+                serviceData.put("rating", service.getRating() != null ? service.getRating() : "0");
+>>>>>>> origin/dev_ram
                 serviceData.put("image", service.getServiceImageUrl() != null ? service.getServiceImageUrl() : "default-image.jpg");
                 serviceData.put("amount", service.getServiceCost() != null ? service.getServiceCost() : 0.0);
 
@@ -183,7 +256,11 @@ public class UserController {
     }
 
     // statistics table data displey api
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev_ram
     @GetMapping("/statistics")
     public ResponseEntity<Map<String, Object>> getStatistics(
             @RequestParam(value = "timePeriod", required = false, defaultValue = "all-time") String timePeriod) {
@@ -194,17 +271,29 @@ public class UserController {
             // Filter users based on the timePeriod
             if ("one-week".equalsIgnoreCase(timePeriod)) {
                 users = users.stream()
+<<<<<<< HEAD
                              .filter(user -> user.getBOOKING_DATE() != null && 
+=======
+                             .filter(user -> user.getBOOKING_DATE() != null &&
+>>>>>>> origin/dev_ram
                                              user.getBOOKING_DATE().isAfter(today.minusWeeks(1)))
                              .collect(Collectors.toList());
             } else if ("two-weeks".equalsIgnoreCase(timePeriod)) {
                 users = users.stream()
+<<<<<<< HEAD
                              .filter(user -> user.getBOOKING_DATE() != null && 
+=======
+                             .filter(user -> user.getBOOKING_DATE() != null &&
+>>>>>>> origin/dev_ram
                                              user.getBOOKING_DATE().isAfter(today.minusWeeks(2)))
                              .collect(Collectors.toList());
             } else if ("one-month".equalsIgnoreCase(timePeriod)) {
                 users = users.stream()
+<<<<<<< HEAD
                              .filter(user -> user.getBOOKING_DATE() != null && 
+=======
+                             .filter(user -> user.getBOOKING_DATE() != null &&
+>>>>>>> origin/dev_ram
                                              user.getBOOKING_DATE().isAfter(today.minusMonths(1)))
                              .collect(Collectors.toList());
             }
@@ -258,7 +347,11 @@ public class UserController {
     }
 
     // overwive contant displaying data api
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> origin/dev_ram
     @GetMapping("/users")
     public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(required = false) String timePeriod) {
         try {
@@ -276,39 +369,63 @@ public class UserController {
             // Filter users and bookings based on the time period
             if ("one-week".equalsIgnoreCase(timePeriod)) {
                 LocalDate startOfWeek = today.minusWeeks(1);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> origin/dev_ram
                 // Filter bookings for the past week and calculate total booking amount
                 totalBookingAmount = bookings.stream()
                     .filter(b -> !b.getBOOKING_DATE().isBefore(startOfWeek))
                     .map(b -> new BigDecimal(b.getBOOKING_AMOUNT()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> origin/dev_ram
                 // Filter customers for the past week
                 totalCustomers = (int) users.stream()
                     .filter(u -> !u.getCONFIRMATION_DATE().isBefore(startOfWeek))
                     .count();
             } else if ("two-weeks".equalsIgnoreCase(timePeriod)) {
                 LocalDate startOfTwoWeeks = today.minusWeeks(2);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> origin/dev_ram
                 // Filter bookings for the past two weeks and calculate total booking amount
                 totalBookingAmount = bookings.stream()
                     .filter(b -> !b.getBOOKING_DATE().isBefore(startOfTwoWeeks))
                     .map(b -> new BigDecimal(b.getBOOKING_AMOUNT()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> origin/dev_ram
                 // Filter customers for the past two weeks
                 totalCustomers = (int) users.stream()
                     .filter(u -> !u.getCONFIRMATION_DATE().isBefore(startOfTwoWeeks))
                     .count();
             } else if ("one-month".equalsIgnoreCase(timePeriod)) {
                 LocalDate startOfMonth = today.minusMonths(1);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> origin/dev_ram
                 // Filter bookings for the past month and calculate total booking amount
                 totalBookingAmount = bookings.stream()
                     .filter(b -> !b.getBOOKING_DATE().isBefore(startOfMonth))
                     .map(b -> new BigDecimal(b.getBOOKING_AMOUNT()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> origin/dev_ram
                 // Filter customers for the past month
                 totalCustomers = (int) users.stream()
                     .filter(u -> !u.getCONFIRMATION_DATE().isBefore(startOfMonth))
@@ -334,7 +451,11 @@ public class UserController {
     }
 
     // all bookings
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev_ram
     @GetMapping("/api/bookings")
     public ResponseEntity<List<User>> getAllBookings() {
         try {
@@ -354,9 +475,15 @@ public class UserController {
         }
     }
 
+<<<<<<< HEAD
     
         
     // fancial managenent api 
+=======
+
+
+    // fancial managenent api
+>>>>>>> origin/dev_ram
     @GetMapping("/service-report")
     public ResponseEntity<List<Map<String, Object>>> getServiceReport() {
         try {
@@ -371,10 +498,39 @@ public class UserController {
             return ResponseEntity.internalServerError().body(null);
         }
         }
+<<<<<<< HEAD
     
     
 
     
+=======
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody Login login, HttpSession session) {
+        Map<String, String> response = new HashMap<>();
+        LoginService loginService = new LoginService();
+        boolean isValidUser = loginService.validateLoginByEmail(login);
+
+        if (isValidUser) {
+            session.setAttribute("adminEmail", login.getEmail()); // Store email in session
+            response.put("message", "Login Successful");
+            return ResponseEntity.ok(response); // Return success with 200 OK
+        } else {
+            response.put("message", "Your credentials are wrong"); // Custom error message
+            return ResponseEntity.status(200).body(response); // Return 200 OK but with the error message
+        }
+    }
+
+    // Logout endpointd
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.invalidate(); // Invalidate the session
+        return ResponseEntity.ok("Logout Successful");
+    }
+
+
+
+>>>>>>> origin/dev_ram
     @PutMapping("/api/bookings/{id}")
     public ResponseEntity<User> updateBooking(@PathVariable Long id, @RequestBody User updatedBooking) {
         try {
@@ -399,7 +555,11 @@ public class UserController {
     }
 
     // top - booking customer data in booking table api data
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> origin/dev_ram
     @GetMapping("/top-booked-customers")
     public ResponseEntity<Map<String, Object>> getTopBookedCustomers() {
         try {
@@ -441,7 +601,11 @@ public class UserController {
     }
 
     // this is top-customer data displaying
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev_ram
     @GetMapping("/api/getTopCustomers")
     public ResponseEntity<?> getTopCustomers(@RequestParam(required = false) String timePeriod) {
         try {
@@ -479,12 +643,20 @@ public class UserController {
     }
 
     // new booking customr data
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev_ram
     @GetMapping("/api/getTopCustomers-2")
     public ResponseEntity<?> getTopCustomers1(@RequestParam(required = false) String timePeriod) {
         try {
             LocalDate startDate = null;
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> origin/dev_ram
             // Handling timePeriod filtering
             if (timePeriod != null) {
                 switch (timePeriod) {
@@ -515,9 +687,15 @@ public class UserController {
         }
     }
 
+<<<<<<< HEAD
     
 
     // 
+=======
+
+
+    //
+>>>>>>> origin/dev_ram
     @PostMapping("/api/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         try {
@@ -531,7 +709,11 @@ public class UserController {
         }
     }
 
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> origin/dev_ram
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
@@ -541,10 +723,17 @@ public class UserController {
             if (existingUser == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
+<<<<<<< HEAD
           
             // Update the fields of the existing user
            
                 
+=======
+
+            // Update the fields of the existing user
+
+
+>>>>>>> origin/dev_ram
             // Save the updated user
             userRepo.save(existingUser);
             return ResponseEntity.status(HttpStatus.OK).body("User updated successfully!");
@@ -554,7 +743,11 @@ public class UserController {
         }
     }
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev_ram
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try {
@@ -568,4 +761,9 @@ public class UserController {
                                  .body("Error while deleting user: " + e.getMessage());
         }
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/dev_ram
 }
