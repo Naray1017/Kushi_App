@@ -14,9 +14,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 import com.example.web_login.entity.Login;
 import com.example.web_login.service.LoginService;
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,53 +65,64 @@ public class UserController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
-
-
+        return "home";  
     }
 
     @GetMapping("/Bookingss")
     public String Bookings() {
-        return "Bookings";
+        return "Bookings";  
     }
 
     @GetMapping("/financialmanagement")
     public String financialmanagement() {
-        return "financialmanagement";
+        return "financialmanagement";  
     }
 
     @GetMapping("/1")
-    public String Costomers1() {
-        return "Customers";
+    public String Customers() {
+        return "Customers";  
     }
 
     @GetMapping("/addservice")
     public String AddService() {
-        return "Add_Service";
+        return "Add_Service";  
     }
 
     @GetMapping("/Invoices")
     public String Invoices() {
-        return "Invoices";
+        return "Invoices";  
     }
 
     @GetMapping("/home2")
     public String about() {
-        return "home2";
+        return "home2";  
     }
+
     @GetMapping("/guru")
     public String admin() {
-        return "admin";
+        return "admin";  
     }
+
+    @GetMapping("/settings")
+    public String settings() {
+        return "settings";  
+    }
+
+    @GetMapping("/profile")
+    public String Profile() {
+        return "profile";  
+    }
+
     @GetMapping("/Login")
     public String Login() {
         return "Login";
     }
+
     @GetMapping("/Logout")
     public String Logout() {
         return "Logout";
     }
-    // service add data api
+
 
     @GetMapping("/Service_Booking/api")
     public ResponseEntity<List<Serevice_add>> getAllServicesAsApi() {
@@ -143,8 +156,6 @@ public class UserController {
         }
     }
 
-    // papular service data api
-
     @GetMapping("/api/services-details")
     public ResponseEntity<List<Map<String, Object>>> getServiceDetails() {
         try {
@@ -162,7 +173,11 @@ public class UserController {
             for (Serevice_add service : services) {
                 Map<String, Object> serviceData = new HashMap<>();
                 serviceData.put("serviceName", service.getServiceName());
+
+                serviceData.put("rating", service.getRating() != null ? service.getRating() : "0"); 
+
                 serviceData.put("rating", service.getRating() != null ? service.getRating() : "0");
+
                 serviceData.put("image", service.getServiceImageUrl() != null ? service.getServiceImageUrl() : "default-image.jpg");
                 serviceData.put("amount", service.getServiceCost() != null ? service.getServiceCost() : 0.0);
 
@@ -232,6 +247,7 @@ public class UserController {
         }
     }
 
+
     // displaying recent booking -- new bookings data
 
     @GetMapping("/recent-bookings")
@@ -255,9 +271,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-
-    // overwive contant displaying data api
-
     @GetMapping("/users")
     public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(required = false) String timePeriod) {
         try {
@@ -276,11 +289,13 @@ public class UserController {
             if ("one-week".equalsIgnoreCase(timePeriod)) {
                 LocalDate startOfWeek = today.minusWeeks(1);
 
+
                 // Filter bookings for the past week and calculate total booking amount
                 totalBookingAmount = bookings.stream()
                     .filter(b -> !b.getBOOKING_DATE().isBefore(startOfWeek))
                     .map(b -> new BigDecimal(b.getBOOKING_AMOUNT()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+
 
                 // Filter customers for the past week
                 totalCustomers = (int) users.stream()
@@ -355,7 +370,9 @@ public class UserController {
 
 
 
+
     // fancial managenent api
+
     @GetMapping("/service-report")
     public ResponseEntity<List<Map<String, Object>>> getServiceReport() {
         try {
@@ -370,6 +387,7 @@ public class UserController {
             return ResponseEntity.internalServerError().body(null);
         }
         }
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Login login, HttpSession session) {
@@ -393,6 +411,7 @@ public class UserController {
         session.invalidate(); // Invalidate the session
         return ResponseEntity.ok("Logout Successful");
     }
+
 
 
 
@@ -537,8 +556,6 @@ public class UserController {
     }
 
 
-
-    //
     @PostMapping("/api/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         try {
@@ -563,9 +580,6 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
 
-            // Update the fields of the existing user
-
-
             // Save the updated user
             userRepo.save(existingUser);
             return ResponseEntity.status(HttpStatus.OK).body("User updated successfully!");
@@ -574,6 +588,8 @@ public class UserController {
                                  .body("Error while updating user: " + e.getMessage());
         }
     }
+
+
 
 
     @DeleteMapping("/delete/{id}")
@@ -589,6 +605,8 @@ public class UserController {
                                  .body("Error while deleting user: " + e.getMessage());
         }
     }
+
+
 
 
 }
