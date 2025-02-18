@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kushi Cleaning Services - Help Desk</title>
+    <link rel="stylesheet" href="css/HelpDesk.css">
+    <style>
+        /* Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1abc9c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Chat Box */
+        .chat-box {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .chat-header {
+            background: #004466;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .chat-header .close-chat {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .chat-messages {
+            padding: 10px;
+            background: #f9f9f9;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #e6e6e6;
+            border-radius: 5px;
+            max-width: 70%; /* Ensure the message does not stretch too far */
+        }
+
+        /* Customer messages (sent) align to the right */
+        .message.sent {
+            margin-left: auto;
+            background: #b3e0ff;
+        }
+
+        /* Admin messages (received) align to the left */
+        .message.received {
+            margin-left: 0;
+            background: #d1ffd8;
+        }
+
+        .chat-message button {
+            margin-left: 10px;
+            background: #1abc9c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+   
+
+    <div class="container">
+        <form action="javascript:void(0);" onsubmit="sendMessage()">
+            <div class="input-container">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-container">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" placeholder="Enter your message here..." rows="5" required></textarea>
+            </div>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <!-- Chat Button -->
+    <div class="chat-button-container">
+        <button onclick="toggleChat()">Chat</button>
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" id="chatBox">
+        <div class="chat-header">
+            Chat with Admin
+            <span class="close-chat" onclick="toggleChat()">×</span>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." />
+            <button onclick="sendMessageToChat()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle chat box visibility
+        function toggleChat() {
+            let chatBox = document.getElementById("chatBox");
+            chatBox.style.display = (chatBox.style.display === "block") ? "none" : "block";
+        }
+
+        // Send a message from the customer
+        function sendMessage() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            const customerMessage = { sender: "Customer", message: `${name} (${email}): ${message}`, type: "sent" };
+            let chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            chatMessages.push(customerMessage);
+            localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+
+            // Reset form
+            document.getElementById("name").value = '';
+            document.getElementById("email").value = '';
+            document.getElementById("message").value = '';
+
+            // Display the updated chat messages
+            displayMessages();
+        }
+
+        // Display chat messages from localStorage
+        function displayMessages() {
+            const chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            let chatMessagesContainer = document.getElementById("chatMessages");
+            chatMessagesContainer.innerHTML = ""; // Clear previous messages
+
+            chatMessages.forEach(msg => {
+                let messageDiv = document.createElement("div");
+                messageDiv.classList.add("chat-message");
+                messageDiv.classList.add(msg.type);  // Add 'sent' or 'received' class
+                messageDiv.innerHTML = `<strong>${msg.sender}:</strong> ${msg.message}`;
+                chatMessagesContainer.appendChild(messageDiv);
+            });
+        }
+
+        // Send message to chat (Admin can reply)
+        function sendMessageToChat() {
+            const replyMessage = document.getElementById("chatInput").value.trim();
+
+            if (replyMessage) {
+                const adminMessage = { sender: "Admin", message: `Admin: ${replyMessage}`, type: "received" };
+                let chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+                chatMessages.push(adminMessage);
+                localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+
+                document.getElementById("chatInput").value = ''; // Clear input
+                displayMessages(); // Update chat display
+            }
+        }
+
+        // Display initial chat messages when the page loads
+        displayMessages();
+    </script>
+</body>
+</html>
