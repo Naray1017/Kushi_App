@@ -17,7 +17,7 @@ body {
     padding-right: 20px; /* Adjusted for smaller padding */
 }
 
-<<<<<<< HEAD
+
 /* Add Service Form */
 /* Center <h2> elements */
 h2 {
@@ -27,7 +27,7 @@ h2 {
     width: fit-content; /* Ensures the width of the element adjusts to content */
 }
 
-=======
+
 /* Centering the <h2> heading */
 .main-content h2 {
     text-align: center;
@@ -35,7 +35,7 @@ h2 {
 }
 
 /* Add Service Form */
->>>>>>> origin/dev_ram
+
 form {
     display: flex;
     flex-direction: column;
@@ -45,35 +45,28 @@ form {
     margin: 0 auto;
 }
 
-<<<<<<< HEAD
-/* Form groups (Spacing between label and input) */
-=======
-/* Form groups */
->>>>>>> origin/dev_ram
+
+
 .form-group {
     width: 100%;
     margin-bottom: 15px;
     text-align: left;
-<<<<<<< HEAD
+
     display: flex;
     flex-direction: column;
 }
 
-/* Labels (Displayed above the box) */
-=======
-}
 
-/* Labels */
->>>>>>> origin/dev_ram
+
+
 form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-<<<<<<< HEAD
+
     color: #555; /* Default color */
-=======
+
     color: #555;
->>>>>>> origin/dev_ram
 }
 
 /* Required field indicator */
@@ -83,11 +76,9 @@ form label {
     font-weight: bold;
 }
 
-<<<<<<< HEAD
-/* Input and textarea styling (Below the label) */
-=======
+
 /* Input and textarea styling */
->>>>>>> origin/dev_ram
+
 form input,
 form textarea,
 form select {
@@ -96,10 +87,9 @@ form select {
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 16px;
-<<<<<<< HEAD
+
     margin-bottom: 15px; /* Adds space between input fields */
-=======
->>>>>>> origin/dev_ram
+
 }
 
 /* Button styling */
@@ -119,7 +109,7 @@ form button:hover {
     background-color: #0056b3;
 }
 
-<<<<<<< HEAD
+
 /* Dark Mode - Global Styles */
 .dark-mode {
     background-color: #121212;
@@ -148,7 +138,7 @@ form button:hover {
 
 .dark-mode form button:hover {
     background-color: #0056b3;
-=======
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
@@ -163,5 +153,8 @@ form button:hover {
         width: 100%;
         padding: 20px 20px;
     }
->>>>>>> origin/dev_ram
+
 }
+}
+
+

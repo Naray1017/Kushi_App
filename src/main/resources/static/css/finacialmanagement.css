@@ -5,10 +5,7 @@ body {
     padding: 0;
     display: flex;
     background-color: #f4f4f4;
-<<<<<<< HEAD
     transition: background-color 0.3s, color 0.3s; /* Smooth transition for color changes */
-=======
->>>>>>> origin/dev_ram
 }
 
 /* Sidebar Styling */
@@ -20,10 +17,7 @@ body {
     width: calc(100% - 270px);
     background-color: white;
     min-height: 100vh;
-<<<<<<< HEAD
     transition: background-color 0.3s, color 0.3s;
-=======
->>>>>>> origin/dev_ram
 }
 
 h2 {
@@ -48,31 +42,23 @@ div button:hover {
     background-color: #2980b9;
 }
 
-<<<<<<< HEAD
 /* Dark mode for the page header */
 .dark-mode h2 {
     color: white; /* Make the heading white in dark mode */
 }
-=======
->>>>>>> origin/dev_ram
+
 /* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-<<<<<<< HEAD
     transition: background-color 0.3s;
-=======
->>>>>>> origin/dev_ram
 }
 
 table, th, td {
     border: 1px solid #ddd;
     text-align: center;
-<<<<<<< HEAD
     transition: border 0.3s;
-=======
->>>>>>> origin/dev_ram
 }
 
 th, td {
@@ -91,7 +77,6 @@ td {
 tr:hover td {
     background-color: #d5dbdb;
 }
-<<<<<<< HEAD
 
 /* Dark Mode - Global Styles */
 .dark-mode {
@@ -144,5 +129,3 @@ tr:hover td {
     background-color: #1e1e1e;
     color: white;
 }
-=======
->>>>>>> origin/dev_ram

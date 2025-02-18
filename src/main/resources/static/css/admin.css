@@ -2,21 +2,13 @@ body {
     display: flex;
     margin: 0;
     font-family: Arial, sans-serif;
-<<<<<<< HEAD
     background-color: #f5f5f5; /* Default background for light mode */
     color: black; /* Default text color for light mode */
-=======
-    background-color: #f5f5f5;
->>>>>>> origin/dev_ram
 }
 
 .sidebar {
     width: 250px;
-<<<<<<< HEAD
-    background-color: white; /* Default background for light mode */
-=======
     background-color: white;
->>>>>>> origin/dev_ram
     padding: 19px;
     display: flex;
     flex-direction: column;
@@ -24,26 +16,14 @@ body {
     height: 100vh;
     position: fixed;
     overflow-y: auto;
-<<<<<<< HEAD
     scrollbar-width: none;
 }
 
-=======
-	scrollbar-width: none;
-}
-
-
-
->>>>>>> origin/dev_ram
 .sidebar .logo img {
     max-width: 100%;
     height: 150px;
     margin-bottom: 0px;
-<<<<<<< HEAD
     padding-left: 45px;
-=======
-	padding-left: 45px;
->>>>>>> origin/dev_ram
 }
 
 nav ul {
@@ -53,11 +33,7 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-<<<<<<< HEAD
     color: black; /* Default text color for links in light mode */
-=======
-    color: black;
->>>>>>> origin/dev_ram
     display: block;
     padding: 10px;
     margin: 10px 0;
@@ -74,10 +50,6 @@ nav ul li a.active, nav ul li a:hover {
     margin-left: 270px;
     padding: 20px;
     width: calc(100% - 270px);
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/dev_ram
 }
 
 header {
@@ -102,55 +74,31 @@ header input[type="text"] {
 }
 
 .card {
-<<<<<<< HEAD
-    background-color: white; /* Light background for cards */
-    padding: 29px;
-=======
     background-color: white;
     padding: 29px;
-	
->>>>>>> origin/dev_ram
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .overview {
-<<<<<<< HEAD
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-=======
-	
     display: flex;
     flex-direction: column; /* Stack content vertically */
     justify-content: flex-start;
     align-items: flex-start;
-	
 }
->>>>>>> origin/dev_ram
+
 .overview-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-<<<<<<< HEAD
-    position: relative;
-=======
     position: relative; /* Ensures proper positioning of the dropdown */
->>>>>>> origin/dev_ram
 }
 
 .time-dropdown {
     position: absolute;
     top: -10px;
-<<<<<<< HEAD
-    right: -383px;
-=======
     right: -383px; /* Aligns the dropdown to the top-right */
->>>>>>> origin/dev_ram
     padding: 5px 1px;
     font-size: 12px;
     border: 1px solid #bdc3c7;
@@ -158,50 +106,23 @@ header input[type="text"] {
     background-color: white;
     cursor: pointer;
 }
-<<<<<<< HEAD
 
 .time-dropdown-1 {
     position: absolute;
     top: -10px;
-    right: -14px;
+    right: -14px; /* Aligns the dropdown to the top-right */
     padding: 5px 1px;
     font-size: 12px;
     border: 1px solid #bdc3c7;
     border-radius: 4px;
     background-color: white;
     cursor: pointer;
-=======
-.time-dropdown-1{
-	position: absolute;
-	   top: -10px;
-	   right: -14px; /* Aligns the dropdown to the top-right */
-	   padding: 5px 1px;
-	   font-size: 12px;
-	   border: 1px solid #bdc3c7;
-	   border-radius: 4px;
-	   background-color: white;
-	   cursor: pointer;
->>>>>>> origin/dev_ram
 }
 
 .time-dropdown:focus {
     outline: none;
     border-color: #1abc9c;
 }
-
-<<<<<<< HEAD
-.overview h3 {
-    margin-bottom: 10px;
-}
-
-.overview-container {
-    display: flex;
-    gap: 5px;
-    justify-content: space-between;
-    width: 100%;
-    height: 80px;
-=======
-
 
 .overview h3 {
     margin-bottom: 10px; /* Space between "Overview" and the boxes */
@@ -212,8 +133,7 @@ header input[type="text"] {
     gap: 5px; /* Add space between the boxes */
     justify-content: space-between; /* Ensure equal spacing */
     width: 100%;
-	height: 80px; /* Make it responsive */
->>>>>>> origin/dev_ram
+    height: 80px; /* Make it responsive */
 }
 
 .overview-box {
@@ -222,18 +142,10 @@ header input[type="text"] {
     padding: -5px;
     border-radius: 8px;
     text-align: center;
-<<<<<<< HEAD
-    flex: 1;
-    box-sizing: border-box;
-}
-
-=======
     flex: 1; /* Ensure boxes take equal width */
     box-sizing: border-box; /* Include padding in width calculation */
 }
 
-
->>>>>>> origin/dev_ram
 .overview-box .positive {
     color: lightgreen;
 }
@@ -264,27 +176,15 @@ header input[type="text"] {
     color: #555;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev_ram
 .popular-services ul {
     list-style: none;
     padding: 0;
     margin: 0;
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/dev_ram
 }
 
 .popular-services li {
     display: flex;
-<<<<<<< HEAD
     height: 30px;
-=======
-	height:30px;
->>>>>>> origin/dev_ram
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
@@ -308,45 +208,27 @@ header input[type="text"] {
 
 .popular-services li div p {
     margin: 0;
-<<<<<<< HEAD
     padding-left: 20px;
-=======
-	padding-left: 20px;
->>>>>>> origin/dev_ram
     font-size: 14px;
 }
 
 .popular-services li .rating {
-<<<<<<< HEAD
-    color: #f1c40f;
-    margin-top: 5px;
-    font-size: 14px;
-=======
     color: #f1c40f; /* Gold color for stars */
     margin-top: 5px; /* Add some spacing above the stars */
     font-size: 14px; /* Adjust star size */
->>>>>>> origin/dev_ram
 }
 
 .popular-services li span {
     font-weight: bold;
     color: #1abc9c;
-<<<<<<< HEAD
-    font-size: 16px;
-=======
     font-size: 16px; /* Adjust price size */
->>>>>>> origin/dev_ram
     margin-left: auto;
 }
 
 .new-bookings .booking {
     display: flex;
     gap: 70px;
-<<<<<<< HEAD
     height: 85px;
-=======
-	height: 85px;
->>>>>>> origin/dev_ram
     align-items: center;
 }
 
@@ -355,28 +237,23 @@ header input[type="text"] {
     color: white;
     border: none;
     padding: 10px;
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/dev_ram
     border-radius: 4px;
     cursor: pointer;
 }
 
 .card.statistics {
-<<<<<<< HEAD
-    height: auto;
+    height: auto; /* Let the card height adjust dynamically */
     padding: 23px;
     box-sizing: border-box;
 }
 
 .chart-placeholder {
-    height: 500px;
-    width: 100%;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 500px; /* Set the height of the chart */
+    width: 100%; /* Set the width of the chart */
+    margin: 0 auto; /* Center horizontally */
+    background-color: #fff; /* Optional: White background */
+    border-radius: 10px; /* Optional: Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for style */
 }
 
 /* Dark Mode - Global Styles */
@@ -439,21 +316,3 @@ header input[type="text"] {
 .dark-mode .customer p {
     color: white; /* White color for dark mode */
 }
-
-=======
-        height: auto; /* Let the card height adjust dynamically */
-        padding: 23px;
-        box-sizing: border-box;
-    }
-
-    .chart-placeholder {
-        height: 500px; /* Set the height of the chart */
-        width: 100%; /* Set the width of the chart */
-        margin: 0 auto; /* Center horizontally */
-        background-color: #fff; /* Optional: White background */
-        border-radius: 10px; /* Optional: Rounded corners */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for style */
-    }
->>>>>>> origin/dev_ram
-
-

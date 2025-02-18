@@ -12,7 +12,7 @@ body {
        h2 {
            text-align: center;
        }
-<<<<<<< HEAD
+
       /* Default Table Styling */
 table {
     width: 100%;
@@ -54,7 +54,7 @@ img {
     border-color: #555; /* Darker border for dark mode */
 }
 
-=======
+
        table {
            width: 100%;
            border-collapse: collapse;
@@ -75,7 +75,7 @@ img {
            object-fit: cover;
            border-radius: 50%;
        }
->>>>>>> origin/dev_ram
+
        .search-container {
            text-align: center;
            margin-bottom: 20px;
@@ -88,7 +88,6 @@ img {
        }
        .highlight {
            background-color: yellow;
-<<<<<<< HEAD
        }
         /* Dark Mode - Global Styles */
 .dark-mode {
@@ -142,6 +141,6 @@ img {
 .dark-mode .sidebar ul li a.active {
     color: #4caf50; /* Light green for active link */
 }
-=======
-       }
->>>>>>> origin/dev_ram
+
+       
+
