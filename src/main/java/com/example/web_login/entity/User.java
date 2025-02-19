@@ -36,24 +36,13 @@ import jakarta.persistence.Column;
 		    @Column(name = "CUSTOMER_NAME") 
 		    private String CUSTOMER_NAME;
 		 
-		 @NotNull(message = "Useremail is required")
-		    @Column(name = "CUSTOMER_EMAIL") 
-		    private String CUSTOMER_EMAIL;
-		 
-		
-	
-		 
-		 public String getCUSTOMER_EMAIL() {
-			return CUSTOMER_EMAIL;
-		}
-
-		public void setCUSTOMER_EMAIL(String cUSTOMER_EMAIL) {
-			CUSTOMER_EMAIL = cUSTOMER_EMAIL;
-		}
-
-		@NotNull(message = "Phone number is required")
+		 @NotNull(message = "Phone number is required")
 		    @Column(name = " CUSTOMER_NUMBER") 
 		    private String CUSTOMER_NUMBER;
+		 
+		 @NotNull(message = "Email is required")
+		    @Column(name = " CUSTOMER_EMAIL") 
+		    private String CUSTOMER_EMAIL;
 		 
 		 @NotNull(message = "Reference name is required")
 		    @Column(name = "REFERENCE_NAME")
@@ -63,12 +52,13 @@ import jakarta.persistence.Column;
 		    @Column(name = " REFERENCE_DETAILS")
 		    private String  REFERENCE_DETAILS;
 	
-		  
-		
-	
 			@NotNull(message = "Booking service name is required")
 		    @Column(name = "BOOKING_SERVICE_NAME") 
 		    private String BOOKING_SERVICE_NAME;
+			
+			@NotNull(message = "Assign is required")
+		    @Column(name = "WORKER_ASSIGN") 
+		    private String WORKER_ASSIGN;
 		    
 		    @NotNull(message = "Booking date is required")
 		    @Column(name = "BOOKING_DATE")
@@ -158,7 +148,7 @@ import jakarta.persistence.Column;
 			public String toString() {
 				return "User [BOOKING_ID=" + BOOKING_ID + ", CUSTOMER_ID=" + CUSTOMER_ID + ", CUSTOMER_NAME="
 						+ CUSTOMER_NAME + ", CUSTOMER_NUMBER=" + CUSTOMER_NUMBER + ", REFERENCE_NAME=" + REFERENCE_NAME
-						+ ", REFERENCE_DETAILS=" + REFERENCE_DETAILS + ", BOOKING_SERVICE_NAME=" + BOOKING_SERVICE_NAME
+						+ ", CUSTOMER_EMAIL=" + CUSTOMER_EMAIL+", REFERENCE_DETAILS=" + REFERENCE_DETAILS + ", WORKER_ASSIGN=" + WORKER_ASSIGN +", BOOKING_SERVICE_NAME=" + BOOKING_SERVICE_NAME
 						+ ", BOOKING_DATE=" + BOOKING_DATE + ", CONFIRMATION_DATE=" + CONFIRMATION_DATE
 						+ ", BOOKING_STATUS=" + BOOKING_STATUS + ", PAYMENT_STATUS=" + PAYMENT_STATUS + ", BOOKING_AMOUNT="
 						+ BOOKING_AMOUNT + ", TOTAL_AMOUNT=" + TOTAL_AMOUNT + ", ADDRESS_LINE_1=" + ADDRESS_LINE_1
@@ -166,8 +156,9 @@ import jakarta.persistence.Column;
 						+ ", ZIP_CODE=" + ZIP_CODE + ", REMARKS=" + REMARKS + ", CREATED_BY=" + CREATED_BY
 						+ ", CREATED_DATE=" + CREATED_DATE + ", UPDATED_BY=" + UPDATED_BY + ", UPDATED_DATE=" + UPDATED_DATE
 						+ ", getBOOKING_ID()=" + getBOOKING_ID() + ", getCUSTOMER_ID()=" + getCUSTOMER_ID()
-						+ ", getCUSTOMER_NAME()=" + getCUSTOMER_NAME() + ", getCUSTOMER_NUMBER()=" + getCUSTOMER_NUMBER()
-						+ ", getREFERENCE_NAME()=" + getREFERENCE_NAME() + ", getREFERENCE_DETAILS()="
+						+ ", getCUSTOMER_NAME()=" + getCUSTOMER_NAME() + ", getCUSTOMER_NUMBER()=" + getCUSTOMER_NUMBER()+
+						", getCUSTOMER_EMAIL()=" + getCUSTOMER_EMAIL()+ ", getWORKER_ASSIGN()=" + getWORKER_ASSIGN()+
+						 ", getREFERENCE_NAME()=" + getREFERENCE_NAME() + ", getREFERENCE_DETAILS()="
 						+ getREFERENCE_DETAILS() + ", getBOOKING_SERVICE_NAME()=" + getBOOKING_SERVICE_NAME()
 						+ ", getBOOKING_DATE()=" + getBOOKING_DATE() + ", getCONFIRMATION_DATE()=" + getCONFIRMATION_DATE()
 						+ ", getBOOKING_STATUS()=" + getBOOKING_STATUS() + ", getPAYMENT_STATUS()=" + getPAYMENT_STATUS()
@@ -365,11 +356,19 @@ import jakarta.persistence.Column;
 				UPDATED_DATE = uPDATED_DATE;
 			}
 
-			
-	
-			
-		   
-	
+			public String getCUSTOMER_EMAIL() {
+				return CUSTOMER_EMAIL;
+			}
+
+			public void setCUSTOMER_EMAIL(String cUSTOMER_EMAIL) {
+				CUSTOMER_EMAIL = cUSTOMER_EMAIL;
+			}
+
+			public String getWORKER_ASSIGN() {
+				return WORKER_ASSIGN;
+			}
+
+			public void setWORKER_ASSIGN(String wORKER_ASSIGN) {
+				WORKER_ASSIGN = wORKER_ASSIGN;
+			}
 	}
-	
-	    
