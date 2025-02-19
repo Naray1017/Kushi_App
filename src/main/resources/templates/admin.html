@@ -328,17 +328,17 @@
 
 				            // Add full stars
 				            for (let i = 0; i < Math.floor(ratingValue); i++) {
-				                stars += '⭐';
+				                stars += '★';
 				            }
 
 				            // Add half star if the rating has a decimal part
 				            if (ratingValue % 0.5 >= 0.5) {
-				                stars += '⭐';  // You can modify this to display a half star (if needed)
+				                stars += '⯪';  // You can modify this to display a half star (if needed)
 				            }
 
 				            // Add empty stars
 				            for (let i = Math.floor(ratingValue); i < totalStars; i++) {
-				                stars += '🌟';
+				                stars += '☆';
 				            }
 
 				            rating.innerHTML = `${stars}`;  // Display only the stars

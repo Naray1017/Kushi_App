@@ -10,15 +10,76 @@
 </head>
 
 <body>
-    <div class="profile-container">
-        <div class="profile-card">
-            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile Picture" class="profile-pic">
-            <h2>John Doe</h2>  <!-- Replace with actual name -->
-            <p>ID: 123456</p>  <!-- Replace with actual ID -->
-        </div>
+   <div class="profile-container">
+    <div class="profile-card">
+        <img id="profilePic" alt="Profile Picture" class="profile-pic">
+        <h2 id="adminName"></h2>
+        <p id="adminId"></p>
+        <p>Email: <span id="adminEmail"></span></p>
+        <p>Phone: <span id="adminPhone"></span></p>
+        <button onclick="OK()">OK</button>
     </div>
-    
+
+    <div class="edit-container" style="display: none;">
+        <h3>Edit Profile</h3>
+        <input type="text" id="newName" placeholder="Enter new name">
+        <input type="email" id="newEmail" placeholder="Enter new email">
+        <input type="text" id="newPhone" placeholder="Enter new phone">
+        <button onclick="updateProfile()">Save Changes</button>
+    </div>
+</div>
+
     <script>
+		
+		function OK() {
+        window.location.href = "guru"; // Change this to your actual dashboard URL
+    }
+		document.addEventListener("DOMContentLoaded", function () {
+    function fetchProfile() {
+        fetch(`http://localhost:1235/log/users`) // Use the correct API URL
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Users not found");
+                }
+                return response.json();
+            })
+            .then(users => {
+                if (!users || users.length === 0) {
+                    throw new Error("No users available");
+                }
+
+                const user = users[0]; // Assuming you only need the first user
+                document.getElementById("profilePic").src = user.profilePicture || "https://via.placeholder.com/150";
+                document.getElementById("adminName").textContent = user.adminName || "No Name Available";
+                document.getElementById("adminId").textContent = `ID: ${user.adminId || "N/A"}`;
+                document.getElementById("adminEmail").textContent = user.email || "No Email Available";
+                document.getElementById("adminPhone").textContent = user.phoneNumber || "No Phone Available";
+            })
+            .catch(error => {
+                console.error("Error fetching user details:", error);
+                document.querySelector(".profile-card").innerHTML = "<p>User details not found.</p>";
+            });
+    }
+
+    fetchProfile();
+});
+
+
+
+		
+		 </script>
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		  <script>
+		
+		
     // Function to apply dark mode on profile page
     function applyDarkMode() {
         if (localStorage.getItem("darkMode") === "enabled") {

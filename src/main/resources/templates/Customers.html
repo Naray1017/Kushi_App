@@ -38,7 +38,7 @@
                     <td>${highlightText(user.email)}</td>
                     <td>${highlightText(user.gender)}</td>
                     <td>${highlightText(new Date(user.lastLogin).toLocaleString())}</td>
-                    <td><img src="${imagePath}" onerror="this.onerror=null; this.src='default.jpg';" alt="Profile"></td>
+                    <td ><img  src="${imagePath}" onerror="this.onerror=null; this.src='default.jpg';" alt="Profile"></td>
                 </tr>`;
                 
                 tableBody.innerHTML += row;
@@ -59,17 +59,19 @@
         }
         
         window.onload = fetchUsers;
- HEAD
+ 
         
 
- origin/dev_ram
+ 
     </script>
 </head>
 <body>
     <div class="sidebar">
         <div class="logo">
-            <img src="https://kushiservices.com/wp-content/uploads/2024/01/cropped-Crimson-1.png" alt="Kushi Hygiene Services">
+            <img   src="https://kushiservices.com/wp-content/uploads/2024/01/cropped-Crimson-1.png" alt="Kushi Hygiene Services">
         </div>
+        
+        
         <nav>
             <ul>
                 <li><a href="/guru">Dashboard</a></li>
