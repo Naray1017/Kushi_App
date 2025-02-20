@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginRepository extends JpaRepository<Login, Long> {
-    // Query to find user by adminUsername
-    Login findByAdminUsername(String adminUsername);
 
     // Query to find user by email
     Login findByEmail(String email); // Corrected parameter type to String
