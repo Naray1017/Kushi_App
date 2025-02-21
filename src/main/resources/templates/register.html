@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            width: 350px;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px gray;
+        }
+        input, select, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            font-size: 14px;
+            color: red;
+        }
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="your-image-path/logo.png" alt="Logo">  <!-- Replace with actual image path -->
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <input type="text" id="lastName" placeholder="Last Name" required>
+        <input type="text" id="phoneNumber" placeholder="Phone Number">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <select id="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+        <button type="submit">Register</button>
+        <p class="message" id="message"></p>
+    </form>
+
+    <!-- 🔹 Login Navigation -->
+    <p class="login-link">Already have an account? <a href="Login">Login here</a></p>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form values
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const gender = document.getElementById("gender").value;
+        const messageElement = document.getElementById("message");
+
+        // 🔍 Validate input fields before sending request
+        if (!firstName || !lastName || !email || !password) {
+            messageElement.innerText = "All fields except phone number are required!";
+            messageElement.style.color = "red";
+            return;
+        }
+
+        if (password.length < 6) {
+            messageElement.innerText = "Password must be at least 6 characters!";
+            messageElement.style.color = "red";
+            return;
+        }
+
+        // Create user object
+        const user = { firstName, lastName, phoneNumber, email, password, gender };
+
+        console.log("Sending data:", user); // ✅ Debugging: Log the request payload
+
+        // Send registration request
+        fetch("http://localhost:1235/reg/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json()) // Convert response to JSON
+        .then(data => {
+            console.log("Server Response:", data); // ✅ Debugging: Log server response
+
+            if (data.message === "Registration Successful") {
+                messageElement.innerText = "Registration Successful! Redirecting...";
+                messageElement.style.color = "green";
+                setTimeout(() => {
+                    window.location.href = "/login.html"; // Redirect to login page after success
+                }, 2000);
+            } else {
+                messageElement.innerText = data.message;
+                messageElement.style.color = "red";
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            messageElement.innerText = "Server error! Please try again later.";
+            messageElement.style.color = "red";
+        });
+    });
+</script>
+
+</body>
+</html>

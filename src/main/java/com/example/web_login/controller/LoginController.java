@@ -25,7 +25,7 @@ public class LoginController {
         boolean isValidUser = loginService.validateLoginByEmail(login);
 
         if (isValidUser) {
-            session.setAttribute("adminEmail", login.getEmail()); // Store email in session
+            session.setAttribute("Email", login.getEmail()); // Store email in session
             response.put("message", "Login Successful");
             return ResponseEntity.ok(response);
         } else {
@@ -40,6 +40,7 @@ public class LoginController {
         session.invalidate(); // Invalidate the session
         return ResponseEntity.ok("Logout Successful");
     }
+
 
     // Get session user details
     @GetMapping("/users")
@@ -73,4 +74,5 @@ public class LoginController {
 
         return ResponseEntity.ok(response);
     }
+
 }

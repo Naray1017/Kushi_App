@@ -15,8 +15,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-import com.example.web_login.entity.Login;
+import com.example.web_login.entity.*;
 import com.example.web_login.service.LoginService;
+import com.example.web_login.service.RegisterService;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.web_login.entity.Serevice_add;
-import com.example.web_login.entity.User;
-import com.example.web_login.entity.User_login;
 import com.example.web_login.repo.Admin_repo;
 import com.example.web_login.repo.UserLoginRepository;
 import com.example.web_login.repo.Userrepo;
@@ -73,6 +71,7 @@ public class UserController {
         return "Bookings";  
     }
 
+
     @GetMapping("/financialmanagement")
     public String financialmanagement() {
         return "financialmanagement";  
@@ -105,7 +104,11 @@ public class UserController {
 
     @GetMapping("/settings")
     public String settings() {
-        return "settings";  
+        return "settings";
+    }
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 
     @GetMapping("/profile")
@@ -606,7 +609,20 @@ public class UserController {
         }
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<Map<String, String>> registerUser(@RequestBody Register register) {
+        Map<String, String> response = new HashMap<>();
+
+        RegisterService registerService = new RegisterService();
+        boolean isRegistered = registerService.registerUser(register);
+
+        if (isRegistered) {
+            response.put("message", "Registration Successful");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Email already exists");
+            return ResponseEntity.status(400).body(response);
+        }
 
 
-
-}
+}}

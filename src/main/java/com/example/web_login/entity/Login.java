@@ -1,51 +1,124 @@
 package com.example.web_login.entity;
 
+
 import jakarta.persistence.*;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-
-@Entity
-@Table(name = "login")
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "USER_LOGIN_INFO")
 public class Login {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // User ID
+    @Column(name = "USER_ID")
+    private Long userId;
 
-    @Column(nullable = false, unique = true)
-    private String adminId; // Unique Admin ID
+    @Column(name = "USER_FIRST_NAME", nullable = false, length = 50)
+    private String firstName;
 
-    @Column(nullable = false)
-    private String adminName; // Admin Name
+    @Column(name = "USER_LAST_NAME", nullable = false, length = 50)
+    private String lastName;
 
-    @Column(nullable = false, unique = true)
-    private String adminUsername; // Admin Username
+    @Column(name = "PHONE_NUMBER", length = 15)
+    private String phoneNumber;
 
-    @Column(nullable = false, unique = true)
-    private String email; // Admin Email
+    @Column(name = "EMAIL", nullable = false, length = 100, unique = true)
+    private String email;
 
-    @Column(nullable = false)
-    private String password; // Admin Password
+    @Column(name = "GENDER", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'M'")
+    private char gender;
 
-    @Column(nullable = false)
-    private String phoneNumber; // Admin Phone Number
+    @Column(name = "LAST_LOGIN")
+    private java.sql.Timestamp lastLogin;
 
-    @Column(nullable = true)
-    private String profilePicture; // Profile Picture (URL or Path)
+    @Column(name = "PROFILE_PICTURE", columnDefinition = "VARCHAR(255) DEFAULT 'default_profile.jpg'")
+    private String profilePicture;
+    private String password;
 
-    public String getEmail() {
-        return this.email;
+    @Override
+    public String toString() {
+        return "User_login [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+                + phoneNumber + ", email=" + email + ", gender=" + gender + ", lastLogin=" + lastLogin
+                + ", profilePicture=" + profilePicture + ", getUserId()=" + getUserId() + ", getFirstName()="
+                + getFirstName() + ", getLastName()=" + getLastName() + ", getPhoneNumber()=" + getPhoneNumber()
+                + ", getEmail()=" + getEmail() + ", getGender()=" + getGender() + ", getLastLogin()=" + getLastLogin()
+                + ", getProfilePicture()=" + getProfilePicture() + ", getClass()=" + getClass() + ", hashCode()="
+                + hashCode() + ", toString()=" + super.toString() + "]";
     }
 
-    public Object getPassword() {
-        return this.password;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public java.sql.Timestamp getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(java.sql.Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture)  {
+        this.profilePicture = profilePicture;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 	public Long getId() {

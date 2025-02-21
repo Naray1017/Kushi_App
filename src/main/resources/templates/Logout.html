@@ -35,52 +35,50 @@
         .logout-container button {
             width: 100%;
             padding: 10px;
-            background-color: #d9534f;
-            color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 10px;
         }
-        .logout-container button:hover {
+        .logout-button {
+            background-color: #d9534f;
+            color: #fff;
+        }
+        .logout-button:hover {
             background-color: #c9302c;
+        }
+        .cancel-button {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        .cancel-button:hover {
+            background-color: #5a6268;
         }
         #logoutMessage {
             color: green;
             display: none;
             margin-top: 10px;
         }
-        .back-to-login {
-            margin-top: 15px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-        .back-to-login:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="logout-container">
-            <h2>Are you sure you want to logout?</h2>
-            <button id="logoutButton">Logout</button>
-            <p id="logoutMessage">Logout Successful</p>
-            <a href="/login" class="back-to-login">Back to Login</a>
-        </div>
+<div class="content">
+    <div class="logout-container">
+        <h2>Are you sure you want to Logout?</h2>
+        <button id="logoutButton" class="logout-button">Yes, Logout</button>
+        <button id="cancelButton" class="cancel-button">Cancel</button>
+        <p id="logoutMessage">Logout Successful</p>
     </div>
+</div>
 
-    <script>
-    document.getElementById('logoutButton').addEventListener('click', async function() {
-        const response = await fetch('/log/logout', { method: 'POST' });
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        window.location.href = '/Login'; // Redirect to login on logout
+    });
 
-        if (response.ok) {
-            window.location.href = '/guru'; // Immediately redirect after logout
-        } else {
-            window.location.href = '/login'; // Redirect to login if logout fails
-        }
-  
-        });
-    </script>
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        window.location.href = '/Login'; // Redirect to login on cancel
+    });
+</script>
 </body>
 </html>

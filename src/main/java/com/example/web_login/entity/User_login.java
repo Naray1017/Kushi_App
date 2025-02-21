@@ -21,7 +21,11 @@ public class User_login {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     private Long userId;
+	@Column(name = "username", nullable = false, unique = true) // Ensure column name matches database
+	private String username;
 
+	@Column(name = "password", nullable = false)
+	private String password;
     @Column(name = "USER_FIRST_NAME", nullable = false, length = 50)
     private String firstName;
 
