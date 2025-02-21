@@ -4,6 +4,7 @@ body {
            padding: 0;
            display: flex;
        }
+       
        .content {
            margin-left: 300px;
            padding: 20px;
@@ -31,13 +32,22 @@ th {
     color: #333; /* Dark text for light mode */
 }
 
-img {
+ img {
     display: block;
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
 }
+.sidebar .logo img {
+    /* Change to your new image */
+    width: 120px; /* Adjust size if needed */
+    height: 150px;
+    margin-bottom: 0px;
+    padding-left: 60px;
+     border-radius: 0%;
+}
+
 
 /* Dark Mode - Table Header */
 .dark-mode table th {
@@ -141,6 +151,7 @@ img {
 .dark-mode .sidebar ul li a.active {
     color: #4caf50; /* Light green for active link */
 }
+
 
        
 
